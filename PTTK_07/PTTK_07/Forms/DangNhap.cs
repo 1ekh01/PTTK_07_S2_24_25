@@ -80,7 +80,7 @@ namespace PTTK_07.Forms
                         _thanhToanCaNhanForm = new Forms.ThanhToanCaNhan();
                     }
                     _thanhToanCaNhanForm.Show();
-                    _lapPhieuForm.FormClosed += (s, args) => Application.Exit();
+                    _thanhToanCaNhanForm.FormClosed += (s, args) => Application.Exit();
                     this.Hide();
                 }
             }
