@@ -75,10 +75,12 @@
             this.txtNewMaTSPDK = new System.Windows.Forms.TextBox();
             this.btnLapPhieuDangKy = new System.Windows.Forms.Button();
             this.cbbNewMaLCCPDK = new System.Windows.Forms.ComboBox();
-            this.btnInPhieuDangKy = new System.Windows.Forms.Button();
+            this.btnInPDK = new System.Windows.Forms.Button();
             this.btnResetFormDangKy = new System.Windows.Forms.Button();
             this.btnLogOut = new System.Windows.Forms.Button();
             this.cbbNewMaLTPDK = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtInMaPDK = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.gvKhachHang)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvThiSinh)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvLoaiChungChi)).BeginInit();
@@ -472,7 +474,7 @@
             // 
             this.lbLapPhieuDangKy.AutoSize = true;
             this.lbLapPhieuDangKy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.lbLapPhieuDangKy.Location = new System.Drawing.Point(850, 695);
+            this.lbLapPhieuDangKy.Location = new System.Drawing.Point(850, 700);
             this.lbLapPhieuDangKy.Name = "lbLapPhieuDangKy";
             this.lbLapPhieuDangKy.Size = new System.Drawing.Size(139, 20);
             this.lbLapPhieuDangKy.TabIndex = 76;
@@ -483,7 +485,7 @@
             // 
             this.lbMaTS.AutoSize = true;
             this.lbMaTS.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.lbMaTS.Location = new System.Drawing.Point(850, 740);
+            this.lbMaTS.Location = new System.Drawing.Point(850, 735);
             this.lbMaTS.Name = "lbMaTS";
             this.lbMaTS.Size = new System.Drawing.Size(89, 20);
             this.lbMaTS.TabIndex = 78;
@@ -493,7 +495,7 @@
             // 
             this.lbMaLT.AutoSize = true;
             this.lbMaLT.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.lbMaLT.Location = new System.Drawing.Point(1322, 740);
+            this.lbMaLT.Location = new System.Drawing.Point(1322, 735);
             this.lbMaLT.Name = "lbMaLT";
             this.lbMaLT.Size = new System.Drawing.Size(85, 20);
             this.lbMaLT.TabIndex = 79;
@@ -503,7 +505,7 @@
             // 
             this.lbMaLCC.AutoSize = true;
             this.lbMaLCC.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.lbMaLCC.Location = new System.Drawing.Point(1085, 740);
+            this.lbMaLCC.Location = new System.Drawing.Point(1085, 735);
             this.lbMaLCC.Name = "lbMaLCC";
             this.lbMaLCC.Size = new System.Drawing.Size(137, 20);
             this.lbMaLCC.TabIndex = 80;
@@ -512,7 +514,7 @@
             // txtNewMaTSPDK
             // 
             this.txtNewMaTSPDK.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txtNewMaTSPDK.Location = new System.Drawing.Point(854, 763);
+            this.txtNewMaTSPDK.Location = new System.Drawing.Point(854, 762);
             this.txtNewMaTSPDK.Name = "txtNewMaTSPDK";
             this.txtNewMaTSPDK.Size = new System.Drawing.Size(180, 26);
             this.txtNewMaTSPDK.TabIndex = 82;
@@ -521,7 +523,7 @@
             // 
             this.btnLapPhieuDangKy.BackColor = System.Drawing.Color.LightCyan;
             this.btnLapPhieuDangKy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnLapPhieuDangKy.Location = new System.Drawing.Point(920, 811);
+            this.btnLapPhieuDangKy.Location = new System.Drawing.Point(985, 800);
             this.btnLapPhieuDangKy.Name = "btnLapPhieuDangKy";
             this.btnLapPhieuDangKy.Size = new System.Drawing.Size(150, 34);
             this.btnLapPhieuDangKy.TabIndex = 85;
@@ -534,31 +536,33 @@
             this.cbbNewMaLCCPDK.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbNewMaLCCPDK.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.cbbNewMaLCCPDK.FormattingEnabled = true;
-            this.cbbNewMaLCCPDK.Location = new System.Drawing.Point(1089, 761);
+            this.cbbNewMaLCCPDK.Location = new System.Drawing.Point(1089, 760);
             this.cbbNewMaLCCPDK.Name = "cbbNewMaLCCPDK";
             this.cbbNewMaLCCPDK.Size = new System.Drawing.Size(180, 28);
             this.cbbNewMaLCCPDK.TabIndex = 86;
             // 
-            // btnInPhieuDangKy
+            // btnInPDK
             // 
-            this.btnInPhieuDangKy.BackColor = System.Drawing.Color.LightBlue;
-            this.btnInPhieuDangKy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnInPhieuDangKy.Location = new System.Drawing.Point(1104, 811);
-            this.btnInPhieuDangKy.Name = "btnInPhieuDangKy";
-            this.btnInPhieuDangKy.Size = new System.Drawing.Size(150, 34);
-            this.btnInPhieuDangKy.TabIndex = 87;
-            this.btnInPhieuDangKy.Text = "In phiếu đăng ký";
-            this.btnInPhieuDangKy.UseVisualStyleBackColor = false;
+            this.btnInPDK.BackColor = System.Drawing.Color.LightBlue;
+            this.btnInPDK.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btnInPDK.Location = new System.Drawing.Point(1232, 860);
+            this.btnInPDK.Name = "btnInPDK";
+            this.btnInPDK.Size = new System.Drawing.Size(150, 34);
+            this.btnInPDK.TabIndex = 87;
+            this.btnInPDK.Text = "In phiếu đăng ký";
+            this.btnInPDK.UseVisualStyleBackColor = false;
+            this.btnInPDK.Click += new System.EventHandler(this.btnInPhieuDangKy_Click);
             // 
             // btnResetFormDangKy
             // 
             this.btnResetFormDangKy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnResetFormDangKy.Location = new System.Drawing.Point(1275, 811);
+            this.btnResetFormDangKy.Location = new System.Drawing.Point(1232, 800);
             this.btnResetFormDangKy.Name = "btnResetFormDangKy";
             this.btnResetFormDangKy.Size = new System.Drawing.Size(150, 34);
             this.btnResetFormDangKy.TabIndex = 88;
             this.btnResetFormDangKy.Text = "Reset form";
             this.btnResetFormDangKy.UseVisualStyleBackColor = true;
+            this.btnResetFormDangKy.Click += new System.EventHandler(this.btnResetFormDangKy_Click);
             // 
             // btnLogOut
             // 
@@ -576,20 +580,41 @@
             this.cbbNewMaLTPDK.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbNewMaLTPDK.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.cbbNewMaLTPDK.FormattingEnabled = true;
-            this.cbbNewMaLTPDK.Location = new System.Drawing.Point(1325, 761);
+            this.cbbNewMaLTPDK.Location = new System.Drawing.Point(1325, 760);
             this.cbbNewMaLTPDK.Name = "cbbNewMaLTPDK";
             this.cbbNewMaLTPDK.Size = new System.Drawing.Size(180, 28);
             this.cbbNewMaLTPDK.TabIndex = 90;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label8.Location = new System.Drawing.Point(855, 867);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(154, 20);
+            this.label8.TabIndex = 91;
+            this.label8.Text = "Nhập mã phiếu để in";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // txtInMaPDK
+            // 
+            this.txtInMaPDK.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.txtInMaPDK.Location = new System.Drawing.Point(1029, 863);
+            this.txtInMaPDK.Name = "txtInMaPDK";
+            this.txtInMaPDK.Size = new System.Drawing.Size(180, 26);
+            this.txtInMaPDK.TabIndex = 92;
             // 
             // DangKyThiCaNhan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1584, 961);
+            this.Controls.Add(this.txtInMaPDK);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.cbbNewMaLTPDK);
             this.Controls.Add(this.btnLogOut);
             this.Controls.Add(this.btnResetFormDangKy);
-            this.Controls.Add(this.btnInPhieuDangKy);
+            this.Controls.Add(this.btnInPDK);
             this.Controls.Add(this.cbbNewMaLCCPDK);
             this.Controls.Add(this.btnLapPhieuDangKy);
             this.Controls.Add(this.txtNewMaTSPDK);
@@ -698,9 +723,11 @@
         private System.Windows.Forms.TextBox txtNewMaTSPDK;
         private System.Windows.Forms.Button btnLapPhieuDangKy;
         private System.Windows.Forms.ComboBox cbbNewMaLCCPDK;
-        private System.Windows.Forms.Button btnInPhieuDangKy;
+        private System.Windows.Forms.Button btnInPDK;
         private System.Windows.Forms.Button btnResetFormDangKy;
         private System.Windows.Forms.Button btnLogOut;
         private System.Windows.Forms.ComboBox cbbNewMaLTPDK;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txtInMaPDK;
     }
 }

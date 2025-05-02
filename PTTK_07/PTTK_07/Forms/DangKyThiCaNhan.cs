@@ -184,7 +184,7 @@ namespace PTTK_07.Forms
             // Placeholder
             DataRow rowLT = allLichThi.NewRow();
             rowLT["MaLT"] = "-- Chọn --";
-            rowLT["LoaiChungChi"] = DBNull.Value;
+            rowLT["LoaiChungChi"] = "-- Chọn --";
             allLichThi.Rows.InsertAt(rowLT, 0);
             //Thêm vào cbb
             cbbNewMaLTPDK.DataSource = allLichThi;
@@ -420,6 +420,70 @@ namespace PTTK_07.Forms
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btnInPhieuDangKy_Click(object sender, EventArgs e)
+        {
+            string maPDK = txtInMaPDK.Text.Trim();
+            if (string.IsNullOrEmpty(maPDK))
+            {
+                MessageBox.Show("Vui lòng nhập mã phiếu đăng ký.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                var db = new DB();
+                var reader = db.SelectFunction("F_MaPDK_to_PHIEU_DANG_KY_NVTN", maPDK);
+
+                if (reader != null && reader.HasRows)
+                {
+                    DataTable dt = new DataTable();
+                    dt.Load(reader);
+
+                    if (dt.Rows.Count > 0)
+                    {
+                        var row = dt.Rows[0];
+                        string message = $"Phiếu đăng ký: {row["MaPDK"]}\n" +
+                                         $"Khách hàng: {row["TenKH"]}\n" +
+                                         $"Thí sinh: {row["TenTS"]}\n" +
+                                         $"Chứng chỉ: {row["TenLoaiChungChi"]}\n" +
+                                         $"Ngày giờ thi: {row["NgayGioThi"]}\n" +
+                                         $"Ngày lập: {Convert.ToDateTime(row["NgayLapPDK"]).ToString("dd/MM/yyyy")}\n" +
+                                         $"Hạn thanh toán: {Convert.ToDateTime(row["HanThanhToan"]).ToString("dd/MM/yyyy")}\n" +
+                                         $"Trạng thái: {row["TrangThai"]}";
+
+                        MessageBox.Show(message, "Đã in phiếu đăng ký", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không tìm thấy phiếu đăng ký với mã đã nhập.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Không có dữ liệu trả về.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi in phiếu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnResetFormDangKy_Click(object sender, EventArgs e)
+        {
+            // Xóa TextBox
+            txtNewMaTSPDK.Text = "";
+
+            // Reset ComboBox về placeholder (thường là index = 0)
+            if (cbbNewMaLCCPDK.Items.Count > 0)
+                cbbNewMaLCCPDK.SelectedIndex = 0;
+
+            if (cbbNewMaLTPDK.Items.Count > 0)
+                cbbNewMaLTPDK.SelectedIndex = 0;
+
+            // (Tuỳ ý thêm các trường khác nếu có)
         }
     }
 }
