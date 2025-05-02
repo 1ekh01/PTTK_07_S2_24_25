@@ -14,6 +14,8 @@ namespace PTTK_07.Forms
 {
     public partial class ThanhToanCaNhan : Form
     {
+        private string MaPDK;
+        private string MaHoaDon;
         public ThanhToanCaNhan()
         {
             InitializeComponent();
@@ -93,6 +95,12 @@ namespace PTTK_07.Forms
             }
         }
 
+        private void FormHinhThucTT_Load()
+        {
+            var roles = new List<string> { "Chuyển khoản", "Tiền mặt" };
+            cbbHinhThucTT.DataSource = roles;
+        }
+
         private void btnLapHoaDon_Click(object sender, EventArgs e)
         {
             string NewMaPDK = txtMaPDK.Text.Trim();
@@ -101,7 +109,7 @@ namespace PTTK_07.Forms
             string NewTrangThai = "Đã TT";
             DateTime NewNgayGioTT = dtpNewNgayGioTT.Value;
             string NewMaNVKT = "NHVN000003";
-            string NewHinhThucThanhToan = "Tiền mặt";
+            string NewHinhThucThanhToan = cbbHinhThucTT.SelectedValue?.ToString();
 
             try
             {
@@ -138,15 +146,96 @@ namespace PTTK_07.Forms
 
         private void btnTimMaPDK_Click_1(object sender, EventArgs e)
         {
-            string MaPDK = txtPDK.Text.Trim();
-
-
-
+            MaPDK = txtPDK.Text.Trim();
+            if (!string.IsNullOrWhiteSpace(MaPDK))
+            {
+                LayPDKMaPDK(MaPDK);
+                txtPDK.Enabled = false;
+                btnTimMaPDK.Enabled = false;
+            }
         }
 
         private void btnHuyTimMaPDK_Click(object sender, EventArgs e)
         {
+            MaPDK = "";
+            LayDanhSachPhieuDangKy();
+            txtPDK.Enabled = true;
+            btnTimMaPDK.Enabled = true;
+            txtPDK.Text = "";
+        }
+        private void LayPDKMaPDK(string MaPDK)
+        {
+            try
+            {
+                if (MaPDK == null) { MaPDK = "M"; }
+                // Gọi phương thức SelectFunction từ DatabaseHelper để truy xuất function F_MaKH_to_KHACH_HANG_NVTN
+                var kh = new DB().SelectFunction("F_MaPDK_to_HOA_DON_NVKT", MaPDK);
+                {
+                    if (kh != null)
+                    {
+                        // Tạo DataTable và load dữ liệu từ SqlDataReader
+                        DataTable dt = new DataTable();
+                        dt.Load(kh);
+                        // Gán DataTable làm nguồn dữ liệu cho GridView
+                        gvPhieuDangKy.DataSource = dt;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không tìm thấy dữ liệu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
+        private void btnTimMaHoaDon_Click(object sender, EventArgs e)
+        {
+            MaHoaDon = txtHoaDon.Text.Trim();
+            if (!string.IsNullOrWhiteSpace(MaHoaDon))
+            {
+                LayHoaDonMaHoaDon(MaHoaDon);
+                txtHoaDon.Enabled = false;
+                btnTimMaHoaDon.Enabled = false;
+            }
+        }
+
+        private void btnHuyTimMaHoaDon_Click(object sender, EventArgs e)
+        {
+            MaHoaDon = "";
+            LayDanhSachHoaDon();
+            txtHoaDon.Enabled = true;
+            btnTimMaHoaDon.Enabled = true;
+            txtHoaDon.Text = "";
+        }
+        private void LayHoaDonMaHoaDon(string MaHoaDon)
+        {
+            try
+            {
+                if (MaHoaDon == null) { MaHoaDon = "M"; }
+                // Gọi phương thức SelectFunction từ DatabaseHelper để truy xuất function F_MaKH_to_KHACH_HANG_NVTN
+                var kh = new DB().SelectFunction("F_MaHoaDon_to_HOA_DON_NVKT", MaHoaDon);
+                {
+                    if (kh != null)
+                    {
+                        // Tạo DataTable và load dữ liệu từ SqlDataReader
+                        DataTable dt = new DataTable();
+                        dt.Load(kh);
+                        // Gán DataTable làm nguồn dữ liệu cho GridView
+                        gvHoaDon.DataSource = dt;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không tìm thấy dữ liệu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
  }
