@@ -14,10 +14,32 @@ namespace PTTK_07.Forms
         public CapChungChi()
         {
             InitializeComponent();
+
+            //this.Load += UnLoad_NVTN;
             this.Load += GV_CapChungChi_Load_NVNL;
+
+            //this.Load += UnLoad_NVNL;
             this.Load += GV_CapChungChi_Load_NVTN;
-            //this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
         }
+        private void UnLoad_NVNL(object sender, EventArgs e)
+        {
+            gbNVNL.Enabled = false;
+            foreach (Control control in gbNVNL.Controls)
+            {
+                control.Enabled = false;
+            }
+        }
+        private void UnLoad_NVTN(object sender, EventArgs e)
+        {
+            gbNVTN.Enabled = false;
+            foreach (Control control in gbNVTN.Controls)
+            {
+                control.Enabled = false;
+            }
+        }
+
+        //----------------------------------------------------------------------------------------
+        //Nhân viên nhập liệu
         private void GV_CapChungChi_Load_NVNL(object sender, EventArgs e)
         {
             LayDanhSachKetQuaThi_NVNL(maKetQuaThi);
@@ -124,13 +146,25 @@ namespace PTTK_07.Forms
                         // Tùy chỉnh cột
                         if (gvKetQuaThi_NVNL.Columns.Count > 0)
                         {
+                            if (gvKetQuaThi_NVNL.Columns["Mã bài thi/kết quả thi"] != null)
+                            {
+                                gvKetQuaThi_NVNL.Columns["Mã bài thi/kết quả thi"].Width = 140;
+                            }
+                            if (gvKetQuaThi_NVNL.Columns["Ngày có điểm"] != null)
+                            {
+                                gvKetQuaThi_NVNL.Columns["Ngày có điểm"].Width = 120;
+                            }
+                            if (gvKetQuaThi_NVNL.Columns["Mã thí sinh"] != null)
+                            {
+                                gvKetQuaThi_NVNL.Columns["Mã thí sinh"].Width = 120;
+                            }
                             if (gvKetQuaThi_NVNL.Columns["Mã loại chứng chỉ"] != null)
                             {
-                                gvKetQuaThi_NVNL.Columns["Mã loại chứng chỉ"].Width = 120;
+                                gvKetQuaThi_NVNL.Columns["Mã loại chứng chỉ"].Width = 170;
                             }
                             if (gvKetQuaThi_NVNL.Columns["Mã phiếu dự thi"] != null)
                             {
-                                gvKetQuaThi_NVNL.Columns["Mã phiếu dự thi"].Width = 120;
+                                gvKetQuaThi_NVNL.Columns["Mã phiếu dự thi"].Width = 170;
                             }
                         }
                     }
@@ -171,15 +205,19 @@ namespace PTTK_07.Forms
                             // Đổi độ rộng cột
                             if (gvKhachHang_NVNL.Columns["Mã khách hàng"] != null)
                             {
-                                gvKhachHang_NVNL.Columns["Mã khách hàng"].Width = 110;
+                                gvKhachHang_NVNL.Columns["Mã khách hàng"].Width = 150;
                             }
                             if (gvKhachHang_NVNL.Columns["Tên khách hàng"] != null)
                             {
-                                gvKhachHang_NVNL.Columns["Tên khách hàng"].Width = 120;
+                                gvKhachHang_NVNL.Columns["Tên khách hàng"].Width = 150;
                             }
                             if (gvKhachHang_NVNL.Columns["Loại khách hàng"] != null)
                             {
-                                gvKhachHang_NVNL.Columns["Loại khách hàng"].Width = 120;
+                                gvKhachHang_NVNL.Columns["Loại khách hàng"].Width = 160;
+                            }
+                            if (gvKhachHang_NVNL.Columns["Số điện thoại"] != null)
+                            {
+                                gvKhachHang_NVNL.Columns["Số điện thoại"].Width = 140;
                             }
                         }
                     }
@@ -216,13 +254,25 @@ namespace PTTK_07.Forms
                         if (gvThiSinh_NVNL.Columns.Count > 0)
                         {
                             // Đổi độ rộng cột
+                            if (gvThiSinh_NVNL.Columns["Mã thí sinh"] != null)
+                            {
+                                gvThiSinh_NVNL.Columns["Mã thí sinh"].Width = 120;
+                            }
+                            if (gvThiSinh_NVNL.Columns["Tên thí sinh"] != null)
+                            {
+                                gvThiSinh_NVNL.Columns["Tên thí sinh"].Width = 130;
+                            }
+                            if (gvThiSinh_NVNL.Columns["Ngày sinh"] != null)
+                            {
+                                gvThiSinh_NVNL.Columns["Ngày sinh"].Width = 110;
+                            }
                             if (gvThiSinh_NVNL.Columns["Căn cước công dân"] != null)
                             {
-                                gvThiSinh_NVNL.Columns["Căn cước công dân"].Width = 130;
+                                gvThiSinh_NVNL.Columns["Căn cước công dân"].Width = 180;
                             }
                             if (gvThiSinh_NVNL.Columns["Mã khách hàng"] != null)
                             {
-                                gvThiSinh_NVNL.Columns["Mã khách hàng"].Width = 110;
+                                gvThiSinh_NVNL.Columns["Mã khách hàng"].Width = 150;
                             }
                         }
                     }
@@ -261,19 +311,23 @@ namespace PTTK_07.Forms
                             // Đổi độ rộng cột
                             if (gvLoaiChungChi_NVNL.Columns["Mã loại chứng chỉ"] != null)
                             {
-                                gvLoaiChungChi_NVNL.Columns["Mã loại chứng chỉ"].Width = 120;
+                                gvLoaiChungChi_NVNL.Columns["Mã loại chứng chỉ"].Width = 170;
                             }
                             if (gvLoaiChungChi_NVNL.Columns["Tên loại chứng chỉ"] != null)
                             {
-                                gvLoaiChungChi_NVNL.Columns["Tên loại chứng chỉ"].Width = 120;
+                                gvLoaiChungChi_NVNL.Columns["Tên loại chứng chỉ"].Width = 190;
                             }
                             if (gvLoaiChungChi_NVNL.Columns["Lĩnh vực chứng chỉ"] != null)
                             {
-                                gvLoaiChungChi_NVNL.Columns["Lĩnh vực chứng chỉ"].Width = 130;
+                                gvLoaiChungChi_NVNL.Columns["Lĩnh vực chứng chỉ"].Width = 200;
+                            }
+                            if (gvLoaiChungChi_NVNL.Columns["Điểm chuẩn"] != null)
+                            {
+                                gvLoaiChungChi_NVNL.Columns["Điểm chuẩn"].Width = 130;
                             }
                             if (gvLoaiChungChi_NVNL.Columns["Thời hạn (tháng)"] != null)
                             {
-                                gvLoaiChungChi_NVNL.Columns["Thời hạn (tháng)"].Width = 110;
+                                gvLoaiChungChi_NVNL.Columns["Thời hạn (tháng)"].Width = 160;
                             }
                         }
                     }
@@ -387,6 +441,7 @@ namespace PTTK_07.Forms
         }
 
         //----------------------------------------------------------------------------------------
+        //Nhân viên tiếp nhận
         private void LayDanhSachKhachHang_NVTN(string maKhachHang_ChungChi)
         {
             try
@@ -429,15 +484,19 @@ namespace PTTK_07.Forms
                             // Đổi độ rộng cột
                             if (gvKhachHang_NVTN.Columns["Mã khách hàng"] != null)
                             {
-                                gvKhachHang_NVTN.Columns["Mã khách hàng"].Width = 110;
+                                gvKhachHang_NVTN.Columns["Mã khách hàng"].Width = 150;
                             }
                             if (gvKhachHang_NVTN.Columns["Tên khách hàng"] != null)
                             {
-                                gvKhachHang_NVTN.Columns["Tên khách hàng"].Width = 120;
+                                gvKhachHang_NVTN.Columns["Tên khách hàng"].Width = 150;
                             }
                             if (gvKhachHang_NVTN.Columns["Loại khách hàng"] != null)
                             {
-                                gvKhachHang_NVTN.Columns["Loại khách hàng"].Width = 120;
+                                gvKhachHang_NVTN.Columns["Loại khách hàng"].Width = 160;
+                            }
+                            if (gvKhachHang_NVTN.Columns["Số điện thoại"] != null)
+                            {
+                                gvKhachHang_NVTN.Columns["Số điện thoại"].Width = 140;
                             }
                         }
                     }
@@ -501,13 +560,37 @@ namespace PTTK_07.Forms
                         // Tùy chỉnh các cột khác
                         if (gvChungChi_ThiSinh_NVTN.Columns.Count > 0)
                         {
+                            if (gvChungChi_ThiSinh_NVTN.Columns["Mã chứng chỉ"] != null)
+                            {
+                                gvChungChi_ThiSinh_NVTN.Columns["Mã chứng chỉ"].Width = 130;
+                            }
+                            if (gvChungChi_ThiSinh_NVTN.Columns["Mã thí sinh"] != null)
+                            {
+                                gvChungChi_ThiSinh_NVTN.Columns["Mã thí sinh"].Width = 120;
+                            }
+                            if (gvChungChi_ThiSinh_NVTN.Columns["Tên thí sinh"] != null)
+                            {
+                                gvChungChi_ThiSinh_NVTN.Columns["Tên thí sinh"].Width = 130;
+                            }
                             if (gvChungChi_ThiSinh_NVTN.Columns["Căn cước công dân"] != null)
                             {
-                                gvChungChi_ThiSinh_NVTN.Columns["Căn cước công dân"].Width = 130;
+                                gvChungChi_ThiSinh_NVTN.Columns["Căn cước công dân"].Width = 180;
+                            }
+                            if (gvChungChi_ThiSinh_NVTN.Columns["Ngày sinh"] != null)
+                            {
+                                gvChungChi_ThiSinh_NVTN.Columns["Ngày sinh"].Width = 110;
+                            }
+                            if (gvChungChi_ThiSinh_NVTN.Columns["Xếp hạng"] != null)
+                            {
+                                gvChungChi_ThiSinh_NVTN.Columns["Xếp hạng"].Width = 110;
                             }
                             if (gvChungChi_ThiSinh_NVTN.Columns["Tên loại chứng chỉ"] != null)
                             {
-                                gvChungChi_ThiSinh_NVTN.Columns["Tên loại chứng chỉ"].Width = 120;
+                                gvChungChi_ThiSinh_NVTN.Columns["Tên loại chứng chỉ"].Width = 190;
+                            }
+                            if (gvChungChi_ThiSinh_NVTN.Columns["Ngày hết hạn"] != null)
+                            {
+                                gvChungChi_ThiSinh_NVTN.Columns["Ngày hết hạn"].Width = 130;
                             }
                         }
                     }
@@ -545,6 +628,7 @@ namespace PTTK_07.Forms
         }
 
         //----------------------------------------------------------------------------------------
+        //Đăng xuất
         private void btnLogOut_Click(object sender, EventArgs e)
         {
             try
