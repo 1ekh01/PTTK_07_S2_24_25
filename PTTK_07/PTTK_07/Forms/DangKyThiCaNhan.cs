@@ -12,8 +12,10 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace PTTK_07.Forms
 {
-    public partial class DangKyThiCaNhan : Form
+    public partial class DangKyThiCaNhan : Form        
     {
+        private string tenKhachHang;
+        private string tenThiSinh;
         public DangKyThiCaNhan()
         {
             InitializeComponent();
@@ -21,6 +23,7 @@ namespace PTTK_07.Forms
             this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
         }
         private Forms.DangNhap _dangNhapForm;
+        private DataTable allLichThi;
         private void GV_LapPhieuDangKy_Load(object sender, EventArgs e)
         {
             LayDanhSachKhachHang();
@@ -159,17 +162,56 @@ namespace PTTK_07.Forms
         }
         private void FormThemLCC_Load()
         {
+            // Load loại chứng chỉ
             var lcc = new DB().Select(
-            "SELECT MaLCC FROM LOAI_CHUNG_CHI"); /*, MaLCC + ' - ' + TenLoaiChungChi as DisplayValue*/
-
+            "SELECT MaLCC, MaLCC + ' - ' + TenLoaiChungChi as DisplayValue FROM LOAI_CHUNG_CHI"); /*, MaLCC + ' - ' + TenLoaiChungChi as DisplayValue*/
             DataTable dt = new DataTable();
             dt.Load(lcc);
-
+            // Placeholder
+            DataRow rowLCC = dt.NewRow();
+            rowLCC["MaLCC"] = "-- Chọn --";
+            rowLCC["DisplayValue"] = "-- Chọn --";
+            dt.Rows.InsertAt(rowLCC, 0);
+            // Thêm vào cbb
             cbbNewMaLCCPDK.DataSource = dt;
-            cbbNewMaLCCPDK.DisplayMember = "MaLCC";  // Hiển thị lên combobox
+            cbbNewMaLCCPDK.DisplayMember = "DisplayValue";  // Hiển thị lên combobox
             cbbNewMaLCCPDK.ValueMember = "MaLCC";    // Dùng làm giá trị thực tế
-            //var lcc = new List<string> { "LOCC000001", "LOCC000002", "LOCC000003", "LOCC000004", "LOCC000005" };
-            //cbbNewMaLCCPDK.DataSource = lcc;
+
+            // Load toàn bộ lịch thi ban đầu
+            var lichThi = new DB().Select("SELECT MaLT, LoaiChungChi FROM LICH_THI");
+            allLichThi = new DataTable();
+            allLichThi.Load(lichThi);
+            // Placeholder
+            DataRow rowLT = allLichThi.NewRow();
+            rowLT["MaLT"] = "-- Chọn --";
+            rowLT["LoaiChungChi"] = DBNull.Value;
+            allLichThi.Rows.InsertAt(rowLT, 0);
+            //Thêm vào cbb
+            cbbNewMaLTPDK.DataSource = allLichThi;
+            cbbNewMaLTPDK.DisplayMember = "MaLT";
+            cbbNewMaLTPDK.ValueMember = "MaLT";
+            // Gọi func để check lịch thi tương ứng
+            cbbNewMaLCCPDK.SelectedIndexChanged += cbbNewMaLCCPDK_SelectedIndexChanged;
+        }
+        private void cbbNewMaLCCPDK_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedMaLCC = cbbNewMaLCCPDK.SelectedValue?.ToString();
+
+            if (string.IsNullOrEmpty(selectedMaLCC) || selectedMaLCC == "--") // Nếu đang ở placeholder
+            {
+                cbbNewMaLTPDK.DataSource = allLichThi;
+                cbbNewMaLTPDK.DisplayMember = "MaLT";
+                cbbNewMaLTPDK.ValueMember = "MaLT";
+                return;
+            }
+
+            // Lọc dữ liệu lịch thi theo MaLCC
+            DataView filteredView = new DataView(allLichThi);
+            filteredView.RowFilter = $"LoaiChungChi = '{selectedMaLCC}'";
+
+            cbbNewMaLTPDK.DataSource = filteredView;
+            cbbNewMaLTPDK.DisplayMember = "MaLT";
+            cbbNewMaLTPDK.ValueMember = "MaLT";
         }
 
         // Thêm Khách hàng
@@ -253,8 +295,8 @@ namespace PTTK_07.Forms
         private void btnLapPhieuDangKy_Click(object sender, EventArgs e)
         {
             string NewMaTSPDK = txtNewMaTSPDK.Text.Trim();
-            string NewMaLTPDK = txtNewMaLTPDK.Text.Trim();
-            string NewMaLCCPDK = cbbNewMaLCCPDK.SelectedItem?.ToString();
+            string NewMaLTPDK = cbbNewMaLTPDK.SelectedValue?.ToString();
+            string NewMaLCCPDK = cbbNewMaLCCPDK.SelectedValue?.ToString();
             string NewMaNVTN = "NHVN000001";
 
             try
@@ -283,6 +325,100 @@ namespace PTTK_07.Forms
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //btnTimTenKH, btnHuyTimTenKH, txtTimTenKH
+        private void btnTimTenKH_Click(object sender, EventArgs e)
+        {
+            tenKhachHang = txtTimTenKH.Text.Trim();
+            if (!string.IsNullOrWhiteSpace(tenKhachHang))
+            {
+                LayKhachHangNVTN(tenKhachHang);
+                txtTimTenKH.Enabled = false;
+                btnTimTenKH.Enabled = false;
+            }
+        }
+        private void btnHuyTimTenKH_Click(object sender, EventArgs e)
+        {
+            tenKhachHang = "";
+            LayDanhSachKhachHang();
+            txtTimTenKH.Enabled = true;
+            btnTimTenKH.Enabled = true;
+            txtTimTenKH.Text = "";
+        }
+        private void LayKhachHangNVTN(string tenKhachHang)
+        {
+            try
+            {
+                if (tenKhachHang == null) { tenKhachHang = "M"; }
+                // Gọi phương thức SelectFunction từ DatabaseHelper để truy xuất function F_MaKH_to_KHACH_HANG_NVTN
+                var kh = new DB().SelectFunction("F_TenKH_to_KHACH_HANG_NVTN", tenKhachHang);
+                {
+                    if (kh != null)
+                    {
+                        // Tạo DataTable và load dữ liệu từ SqlDataReader
+                        DataTable dt = new DataTable();
+                        dt.Load(kh);
+                        // Gán DataTable làm nguồn dữ liệu cho GridView
+                        gvKhachHang.DataSource = dt;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không tìm thấy dữ liệu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnTimTenTS_Click(object sender, EventArgs e)
+        {
+            tenThiSinh = txtTimTenTS.Text.Trim();
+            if (!string.IsNullOrWhiteSpace(tenThiSinh))
+            {
+                LayThiSinhNVTN(tenThiSinh);
+                txtTimTenTS.Enabled = false;
+                btnTimTenTS.Enabled = false;
+            }
+        }
+
+        private void btnHuyTimTenTS_Click(object sender, EventArgs e)
+        {
+            tenThiSinh = "";
+            LayDanhSachThiSinh();
+            txtTimTenTS.Enabled = true;
+            btnTimTenTS.Enabled = true;
+            txtTimTenTS.Text = "";
+        }
+        private void LayThiSinhNVTN(string tenThiSinh)
+        {
+            try
+            {
+                if (tenThiSinh == null) { tenThiSinh = "M"; }
+                // Gọi phương thức SelectFunction từ DatabaseHelper để truy xuất function F_MaKH_to_KHACH_HANG_NVTN
+                var kh = new DB().SelectFunction("F_TenTS_to_THI_SINH_NVTN", tenThiSinh);
+                {
+                    if (kh != null)
+                    {
+                        // Tạo DataTable và load dữ liệu từ SqlDataReader
+                        DataTable dt = new DataTable();
+                        dt.Load(kh);
+                        // Gán DataTable làm nguồn dữ liệu cho GridView
+                        gvThiSinh.DataSource = dt;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Không tìm thấy dữ liệu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

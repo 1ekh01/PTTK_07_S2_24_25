@@ -17,7 +17,7 @@ namespace PTTK_07.Helpers
 //        {
 //            string connStr = @"Data Source=PLASMAPEA;Initial Catalog=PTTK_TTLT_ACCI;Integrated Security=True;Trust Server Certificate=True";
 //            string connStr = @"Data Source=PLASMAPEA;Initial Catalog=PTTK_TTLT_ACCI;Integrated Security=True;Trust Server Certificate=True";
-
+//            string ConnectionString = @"Data Source=LAPTOP-I0V0SQMU\MS_SQLSERVER22;Initial Catalog=PTTK_TTLT_ACCI;Integrated Security=True;Trust Server Certificate=True";
 //            try
 //            {
 //                Connection = new SqlConnection(connStr);
@@ -45,7 +45,7 @@ namespace PTTK_07.Helpers
     class DB
     {
         //1.Address of SQL server and database(Connection String)
-        string ConnectionString = "Data Source=PLASMAPEA;Initial Catalog=PTTK_TTLT_ACCI;Integrated Security=True;Trust Server Certificate=True";
+        string ConnectionString = @"Data Source=LAPTOP-I0V0SQMU\MS_SQLSERVER22;Initial Catalog=PTTK_TTLT_ACCI;Integrated Security=True;Trust Server Certificate=True";
         //2.Establish connection(c# sqlconnection class)
         SqlConnection con = null;
 

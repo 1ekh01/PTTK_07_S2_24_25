@@ -48,7 +48,7 @@
             this.btnNewTaoKH = new System.Windows.Forms.Button();
             this.btnHuyTimTenTS = new System.Windows.Forms.Button();
             this.btnTimTenTS = new System.Windows.Forms.Button();
-            this.txtTenTS = new System.Windows.Forms.TextBox();
+            this.txtTimTenTS = new System.Windows.Forms.TextBox();
             this.lbTenTS = new System.Windows.Forms.Label();
             this.lbThiSinh = new System.Windows.Forms.Label();
             this.gvThiSinh = new System.Windows.Forms.DataGridView();
@@ -69,18 +69,16 @@
             this.gvPhieuDangKy = new System.Windows.Forms.DataGridView();
             this.lbPhieuDangKy = new System.Windows.Forms.Label();
             this.lbLapPhieuDangKy = new System.Windows.Forms.Label();
-            this.lbMaKH = new System.Windows.Forms.Label();
             this.lbMaTS = new System.Windows.Forms.Label();
             this.lbMaLT = new System.Windows.Forms.Label();
             this.lbMaLCC = new System.Windows.Forms.Label();
-            this.txtNewMaKHPDK = new System.Windows.Forms.TextBox();
             this.txtNewMaTSPDK = new System.Windows.Forms.TextBox();
-            this.txtNewMaLTPDK = new System.Windows.Forms.TextBox();
             this.btnLapPhieuDangKy = new System.Windows.Forms.Button();
             this.cbbNewMaLCCPDK = new System.Windows.Forms.ComboBox();
             this.btnInPhieuDangKy = new System.Windows.Forms.Button();
             this.btnResetFormDangKy = new System.Windows.Forms.Button();
             this.btnLogOut = new System.Windows.Forms.Button();
+            this.cbbNewMaLTPDK = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.gvKhachHang)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvThiSinh)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvLoaiChungChi)).BeginInit();
@@ -97,6 +95,7 @@
             this.btnHuyTimTenKH.TabIndex = 36;
             this.btnHuyTimTenKH.Text = "Hủy tìm";
             this.btnHuyTimTenKH.UseVisualStyleBackColor = true;
+            this.btnHuyTimTenKH.Click += new System.EventHandler(this.btnHuyTimTenKH_Click);
             // 
             // btnTimTenKH
             // 
@@ -107,6 +106,7 @@
             this.btnTimTenKH.TabIndex = 35;
             this.btnTimTenKH.Text = "Tìm";
             this.btnTimTenKH.UseVisualStyleBackColor = true;
+            this.btnTimTenKH.Click += new System.EventHandler(this.btnTimTenKH_Click);
             // 
             // txtTimTenKH
             // 
@@ -266,6 +266,7 @@
             this.btnHuyTimTenTS.TabIndex = 55;
             this.btnHuyTimTenTS.Text = "Hủy tìm";
             this.btnHuyTimTenTS.UseVisualStyleBackColor = true;
+            this.btnHuyTimTenTS.Click += new System.EventHandler(this.btnHuyTimTenTS_Click);
             // 
             // btnTimTenTS
             // 
@@ -276,14 +277,15 @@
             this.btnTimTenTS.TabIndex = 54;
             this.btnTimTenTS.Text = "Tìm";
             this.btnTimTenTS.UseVisualStyleBackColor = true;
+            this.btnTimTenTS.Click += new System.EventHandler(this.btnTimTenTS_Click);
             // 
-            // txtTenTS
+            // txtTimTenTS
             // 
-            this.txtTenTS.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txtTenTS.Location = new System.Drawing.Point(1050, 260);
-            this.txtTenTS.Name = "txtTenTS";
-            this.txtTenTS.Size = new System.Drawing.Size(250, 26);
-            this.txtTenTS.TabIndex = 53;
+            this.txtTimTenTS.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.txtTimTenTS.Location = new System.Drawing.Point(1050, 260);
+            this.txtTimTenTS.Name = "txtTimTenTS";
+            this.txtTimTenTS.Size = new System.Drawing.Size(250, 26);
+            this.txtTimTenTS.TabIndex = 53;
             // 
             // lbTenTS
             // 
@@ -477,21 +479,11 @@
             this.lbLapPhieuDangKy.Text = "Lập Phiếu đăng ký";
             this.lbLapPhieuDangKy.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lbMaKH
-            // 
-            this.lbMaKH.AutoSize = true;
-            this.lbMaKH.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.lbMaKH.Location = new System.Drawing.Point(850, 740);
-            this.lbMaKH.Name = "lbMaKH";
-            this.lbMaKH.Size = new System.Drawing.Size(120, 20);
-            this.lbMaKH.TabIndex = 77;
-            this.lbMaKH.Text = "Mã Khách hàng";
-            // 
             // lbMaTS
             // 
             this.lbMaTS.AutoSize = true;
             this.lbMaTS.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.lbMaTS.Location = new System.Drawing.Point(850, 780);
+            this.lbMaTS.Location = new System.Drawing.Point(850, 740);
             this.lbMaTS.Name = "lbMaTS";
             this.lbMaTS.Size = new System.Drawing.Size(89, 20);
             this.lbMaTS.TabIndex = 78;
@@ -501,7 +493,7 @@
             // 
             this.lbMaLT.AutoSize = true;
             this.lbMaLT.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.lbMaLT.Location = new System.Drawing.Point(1180, 740);
+            this.lbMaLT.Location = new System.Drawing.Point(1322, 740);
             this.lbMaLT.Name = "lbMaLT";
             this.lbMaLT.Size = new System.Drawing.Size(85, 20);
             this.lbMaLT.TabIndex = 79;
@@ -511,45 +503,30 @@
             // 
             this.lbMaLCC.AutoSize = true;
             this.lbMaLCC.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.lbMaLCC.Location = new System.Drawing.Point(1181, 780);
+            this.lbMaLCC.Location = new System.Drawing.Point(1085, 740);
             this.lbMaLCC.Name = "lbMaLCC";
             this.lbMaLCC.Size = new System.Drawing.Size(137, 20);
             this.lbMaLCC.TabIndex = 80;
             this.lbMaLCC.Text = "Mã Loại chứng chỉ";
             // 
-            // txtNewMaKHPDK
-            // 
-            this.txtNewMaKHPDK.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txtNewMaKHPDK.Location = new System.Drawing.Point(980, 740);
-            this.txtNewMaKHPDK.Name = "txtNewMaKHPDK";
-            this.txtNewMaKHPDK.Size = new System.Drawing.Size(180, 26);
-            this.txtNewMaKHPDK.TabIndex = 81;
-            // 
             // txtNewMaTSPDK
             // 
             this.txtNewMaTSPDK.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txtNewMaTSPDK.Location = new System.Drawing.Point(980, 780);
+            this.txtNewMaTSPDK.Location = new System.Drawing.Point(854, 763);
             this.txtNewMaTSPDK.Name = "txtNewMaTSPDK";
             this.txtNewMaTSPDK.Size = new System.Drawing.Size(180, 26);
             this.txtNewMaTSPDK.TabIndex = 82;
             // 
-            // txtNewMaLTPDK
-            // 
-            this.txtNewMaLTPDK.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.txtNewMaLTPDK.Location = new System.Drawing.Point(1335, 740);
-            this.txtNewMaLTPDK.Name = "txtNewMaLTPDK";
-            this.txtNewMaLTPDK.Size = new System.Drawing.Size(180, 26);
-            this.txtNewMaLTPDK.TabIndex = 83;
-            // 
             // btnLapPhieuDangKy
             // 
+            this.btnLapPhieuDangKy.BackColor = System.Drawing.Color.LightCyan;
             this.btnLapPhieuDangKy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnLapPhieuDangKy.Location = new System.Drawing.Point(950, 840);
+            this.btnLapPhieuDangKy.Location = new System.Drawing.Point(920, 811);
             this.btnLapPhieuDangKy.Name = "btnLapPhieuDangKy";
             this.btnLapPhieuDangKy.Size = new System.Drawing.Size(150, 34);
             this.btnLapPhieuDangKy.TabIndex = 85;
             this.btnLapPhieuDangKy.Text = "Lập phiếu đăng ký";
-            this.btnLapPhieuDangKy.UseVisualStyleBackColor = true;
+            this.btnLapPhieuDangKy.UseVisualStyleBackColor = false;
             this.btnLapPhieuDangKy.Click += new System.EventHandler(this.btnLapPhieuDangKy_Click);
             // 
             // cbbNewMaLCCPDK
@@ -557,25 +534,26 @@
             this.cbbNewMaLCCPDK.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbNewMaLCCPDK.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.cbbNewMaLCCPDK.FormattingEnabled = true;
-            this.cbbNewMaLCCPDK.Location = new System.Drawing.Point(1335, 780);
+            this.cbbNewMaLCCPDK.Location = new System.Drawing.Point(1089, 761);
             this.cbbNewMaLCCPDK.Name = "cbbNewMaLCCPDK";
             this.cbbNewMaLCCPDK.Size = new System.Drawing.Size(180, 28);
             this.cbbNewMaLCCPDK.TabIndex = 86;
             // 
             // btnInPhieuDangKy
             // 
+            this.btnInPhieuDangKy.BackColor = System.Drawing.Color.LightBlue;
             this.btnInPhieuDangKy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnInPhieuDangKy.Location = new System.Drawing.Point(1125, 840);
+            this.btnInPhieuDangKy.Location = new System.Drawing.Point(1104, 811);
             this.btnInPhieuDangKy.Name = "btnInPhieuDangKy";
             this.btnInPhieuDangKy.Size = new System.Drawing.Size(150, 34);
             this.btnInPhieuDangKy.TabIndex = 87;
             this.btnInPhieuDangKy.Text = "In phiếu đăng ký";
-            this.btnInPhieuDangKy.UseVisualStyleBackColor = true;
+            this.btnInPhieuDangKy.UseVisualStyleBackColor = false;
             // 
             // btnResetFormDangKy
             // 
             this.btnResetFormDangKy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnResetFormDangKy.Location = new System.Drawing.Point(1300, 840);
+            this.btnResetFormDangKy.Location = new System.Drawing.Point(1275, 811);
             this.btnResetFormDangKy.Name = "btnResetFormDangKy";
             this.btnResetFormDangKy.Size = new System.Drawing.Size(150, 34);
             this.btnResetFormDangKy.TabIndex = 88;
@@ -593,23 +571,31 @@
             this.btnLogOut.Text = "Log Out";
             this.btnLogOut.UseVisualStyleBackColor = false;
             // 
+            // cbbNewMaLTPDK
+            // 
+            this.cbbNewMaLTPDK.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbNewMaLTPDK.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.cbbNewMaLTPDK.FormattingEnabled = true;
+            this.cbbNewMaLTPDK.Location = new System.Drawing.Point(1325, 761);
+            this.cbbNewMaLTPDK.Name = "cbbNewMaLTPDK";
+            this.cbbNewMaLTPDK.Size = new System.Drawing.Size(180, 28);
+            this.cbbNewMaLTPDK.TabIndex = 90;
+            // 
             // DangKyThiCaNhan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1584, 961);
+            this.Controls.Add(this.cbbNewMaLTPDK);
             this.Controls.Add(this.btnLogOut);
             this.Controls.Add(this.btnResetFormDangKy);
             this.Controls.Add(this.btnInPhieuDangKy);
             this.Controls.Add(this.cbbNewMaLCCPDK);
             this.Controls.Add(this.btnLapPhieuDangKy);
-            this.Controls.Add(this.txtNewMaLTPDK);
             this.Controls.Add(this.txtNewMaTSPDK);
-            this.Controls.Add(this.txtNewMaKHPDK);
             this.Controls.Add(this.lbMaLCC);
             this.Controls.Add(this.lbMaLT);
             this.Controls.Add(this.lbMaTS);
-            this.Controls.Add(this.lbMaKH);
             this.Controls.Add(this.lbLapPhieuDangKy);
             this.Controls.Add(this.lbPhieuDangKy);
             this.Controls.Add(this.gvPhieuDangKy);
@@ -629,7 +615,7 @@
             this.Controls.Add(this.txtNewTenTS);
             this.Controls.Add(this.btnHuyTimTenTS);
             this.Controls.Add(this.btnTimTenTS);
-            this.Controls.Add(this.txtTenTS);
+            this.Controls.Add(this.txtTimTenTS);
             this.Controls.Add(this.lbTenTS);
             this.Controls.Add(this.lbThiSinh);
             this.Controls.Add(this.gvThiSinh);
@@ -685,7 +671,7 @@
         private System.Windows.Forms.Button btnNewTaoKH;
         private System.Windows.Forms.Button btnHuyTimTenTS;
         private System.Windows.Forms.Button btnTimTenTS;
-        private System.Windows.Forms.TextBox txtTenTS;
+        private System.Windows.Forms.TextBox txtTimTenTS;
         private System.Windows.Forms.Label lbTenTS;
         private System.Windows.Forms.Label lbThiSinh;
         private System.Windows.Forms.DataGridView gvThiSinh;
@@ -706,17 +692,15 @@
         private System.Windows.Forms.DataGridView gvPhieuDangKy;
         private System.Windows.Forms.Label lbPhieuDangKy;
         private System.Windows.Forms.Label lbLapPhieuDangKy;
-        private System.Windows.Forms.Label lbMaKH;
         private System.Windows.Forms.Label lbMaTS;
         private System.Windows.Forms.Label lbMaLT;
         private System.Windows.Forms.Label lbMaLCC;
-        private System.Windows.Forms.TextBox txtNewMaKHPDK;
         private System.Windows.Forms.TextBox txtNewMaTSPDK;
-        private System.Windows.Forms.TextBox txtNewMaLTPDK;
         private System.Windows.Forms.Button btnLapPhieuDangKy;
         private System.Windows.Forms.ComboBox cbbNewMaLCCPDK;
         private System.Windows.Forms.Button btnInPhieuDangKy;
         private System.Windows.Forms.Button btnResetFormDangKy;
         private System.Windows.Forms.Button btnLogOut;
+        private System.Windows.Forms.ComboBox cbbNewMaLTPDK;
     }
 }
