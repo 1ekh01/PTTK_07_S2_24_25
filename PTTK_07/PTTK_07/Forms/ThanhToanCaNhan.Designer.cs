@@ -207,6 +207,7 @@
             // 
             // btnLogOut
             // 
+            this.btnLogOut.BackColor = System.Drawing.Color.Salmon;
             this.btnLogOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.btnLogOut.Location = new System.Drawing.Point(1393, 755);
             this.btnLogOut.Margin = new System.Windows.Forms.Padding(4);
@@ -214,7 +215,7 @@
             this.btnLogOut.Size = new System.Drawing.Size(143, 42);
             this.btnLogOut.TabIndex = 65;
             this.btnLogOut.Text = "Đăng xuất";
-            this.btnLogOut.UseVisualStyleBackColor = true;
+            this.btnLogOut.UseVisualStyleBackColor = false;
             // 
             // label1
             // 
@@ -345,7 +346,6 @@
             this.Controls.Add(this.lbKhachHang);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ThanhToan";
-            this.Text = "Thanh toán";
             ((System.ComponentModel.ISupportInitialize)(this.gvPhieuDangKy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvHoaDon)).EndInit();
             this.ResumeLayout(false);
