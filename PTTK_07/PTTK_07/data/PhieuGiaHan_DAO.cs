@@ -272,42 +272,34 @@ namespace PTTK_07.Data
             }
         }
 
-        public (bool, string) ThemYeuCauGiaHan(string maPDT, DateTime ngayGiaHan, string lyDo, decimal phiGiaHan = 0)
+        public (bool, string, string) ThemYeuCauGiaHan(string maPDT, DateTime ngayGiaHan, string lyDo, decimal phiGiaHan = 0)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 try
                 {
                     conn.Open();
-                    System.Diagnostics.Debug.WriteLine($"Connection opened successfully for maPDT: {maPDT}");
-
-                    SqlCommand cmd = new SqlCommand(
-                        "INSERT INTO YEU_CAU_GIA_HAN (MaPDT, NgayYeuCauGiaHan, LyDoGiaHan, PhiGiaHan) " +
-                        "OUTPUT INSERTED.MaYCGH VALUES (@MaPDT, @NgayYeuCauGiaHan, @LyDoGiaHan, @PhiGiaHan)", conn);
+                    // Thêm bản ghi vào YEU_CAU_GIA_HAN
+                    string insertQuery = @"
+                INSERT INTO YEU_CAU_GIA_HAN (NgayYeuCauGiaHan, LyDoGiaHan, PhiGiaHan, MaPDT)
+                OUTPUT INSERTED.MaYCGH
+                VALUES (@NgayYeuCauGiaHan, @LyDoGiaHan, @PhiGiaHan, @MaPDT)";
+                    SqlCommand cmd = new SqlCommand(insertQuery, conn);
+                    cmd.Parameters.AddWithValue("@NgayYeuCauGiaHan", ngayGiaHan);
+                    cmd.Parameters.AddWithValue("@LyDoGiaHan", lyDo);
+                    cmd.Parameters.AddWithValue("@PhiGiaHan", phiGiaHan);
                     cmd.Parameters.AddWithValue("@MaPDT", maPDT);
-                    cmd.Parameters.AddWithValue("@NgayYeuCauGiaHan", ngayGiaHan.Date); // Chỉ lấy phần ngày
-                    cmd.Parameters.AddWithValue("@LyDoGiaHan", (object)lyDo ?? DBNull.Value);
-                    cmd.Parameters.AddWithValue("@PhiGiaHan", (double)phiGiaHan); // Chuyển decimal thành double vì cột là FLOAT
 
+                    // Thực hiện INSERT và lấy MaYCGH vừa tạo
                     string maYCGH = cmd.ExecuteScalar()?.ToString();
-                    if (string.IsNullOrEmpty(maYCGH))
-                    {
-                        System.Diagnostics.Debug.WriteLine("Failed to retrieve MaYCGH after insert.");
-                        return (false, null);
-                    }
+                    bool success = !string.IsNullOrEmpty(maYCGH);
 
-                    System.Diagnostics.Debug.WriteLine($"Inserted YEU_CAU_GIA_HAN with MaYCGH: {maYCGH}");
-                    return (true, maYCGH);
-                }
-                catch (SqlException ex)
-                {
-                    System.Diagnostics.Debug.WriteLine($"SQL Error in ThemYeuCauGiaHan: {ex.Number} - {ex.Message}");
-                    return (false, null);
+                    return (success, success ? "Thêm yêu cầu gia hạn thành công!" : "Thêm yêu cầu gia hạn thất bại!", maYCGH);
                 }
                 catch (Exception ex)
                 {
-                    System.Diagnostics.Debug.WriteLine($"General Error in ThemYeuCauGiaHan: {ex.Message}");
-                    return (false, null);
+                    System.Diagnostics.Debug.WriteLine($"Error in ThemYeuCauGiaHan: {ex.Message}");
+                    return (false, $"Lỗi: {ex.Message}", null);
                 }
             }
         }
