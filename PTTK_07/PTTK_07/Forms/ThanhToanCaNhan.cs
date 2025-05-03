@@ -95,7 +95,6 @@ namespace PTTK_07.Forms
             var roles = new List<string> { "Chuyển khoản", "Tiền mặt" };
             cbbHinhThucTT.DataSource = roles;
         }
-
         private void btnLapHoaDon_Click(object sender, EventArgs e)
         {
             string NewMaPDK = txtMaPDK.Text.Trim();
@@ -105,7 +104,6 @@ namespace PTTK_07.Forms
             string NewMaNVKT = "NHVN000003";
             string NewHinhThucThanhToan = cbbHinhThucTT.SelectedValue?.ToString();
 
-            // Kiểm tra dữ liệu hợp lệ
             if (!decimal.TryParse(NewSoTien, out decimal soTien) || soTien < 0 ||
                 !decimal.TryParse(NewChietKhau, out decimal chietKhau) || chietKhau < 0 ||
                 NewNgayGioTT < DateTime.Now.AddMinutes(-1))
@@ -128,37 +126,32 @@ namespace PTTK_07.Forms
 
                     if (trangThai == "Đã TT")
                     {
-                        MessageBox.Show("Thêm hóa đơn thất bại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Phiếu đã được thanh toán.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
+                    }
+                    else if (trangThai == "Chờ TT")
+                    {
+                        var parameters = new Dictionary<string, object>
+                {
+                    { "@v_MaPDK", NewMaPDK },
+                    { "@v_SoTienThanhToan", soTien },
+                    { "@v_ChietKhau", chietKhau },
+                    { "@v_MaNVKeToan", NewMaNVKT },
+                    { "@v_HinhThucThanhToan", NewHinhThucThanhToan },
+                    { "@v_NgayGioThanhToan", NewNgayGioTT }
+                };
+
+
+                        db.ExecuteProcedure("P_INSERT_HOA_DON_NVKT", parameters);
+
+                        MessageBox.Show("Thêm hóa đơn thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LayDanhSachHoaDon();
+                        LayDanhSachPhieuDangKy();
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Thêm hóa đơn thất bại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                var parameters = new Dictionary<string, object>
-        {
-            { "@v_MaPDK", NewMaPDK },
-            { "@v_SoTienThanhToan", soTien },
-            { "@v_ChietKhau", chietKhau },
-            { "@v_MaNVKeToan", NewMaNVKT },
-            { "@v_HinhThucThanhToan", NewHinhThucThanhToan },
-            { "@v_NgayGioThanhToan", NewNgayGioTT }
-        };
-
-                bool success = db.ExecuteProcedure("P_INSERT_HOA_DON_NVKT", parameters);
-
-                if (success)
-                {
-                    MessageBox.Show("Thêm hóa đơn thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LayDanhSachHoaDon();
-                    LayDanhSachPhieuDangKy();
-                }
-                else
-                {
-                    MessageBox.Show("Thêm hóa đơn thất bại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Không tìm thấy phiếu đăng ký.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
@@ -166,6 +159,7 @@ namespace PTTK_07.Forms
                 MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
 
         private void btnTimMaPDK_Click_1(object sender, EventArgs e)
