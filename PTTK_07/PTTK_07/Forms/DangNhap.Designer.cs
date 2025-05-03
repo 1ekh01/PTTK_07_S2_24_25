@@ -105,10 +105,7 @@ namespace PTTK_07.Forms
             this.cbUseCase.FormattingEnabled = true;
             this.cbUseCase.Items.AddRange(new object[] {
             "Đăng ký thi Cá nhân",
-            "Đăng ký thi Đơn vị",
-            "Lập Phiếu đăng ký",
             "Thanh toán Cá nhân",
-            "Thanh toán Đơn vị",
             "Gia hạn Đặc biệt",
             "Gia hạn Tính phí",
             "Cấp chứng chỉ"});
