@@ -16,10 +16,5 @@ namespace PTTK_07.Forms
         {
             InitializeComponent();
         }
-
-        private void GiaHanTinhPhi_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }
