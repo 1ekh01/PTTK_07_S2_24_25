@@ -83,13 +83,11 @@ namespace PTTK_07.Business
         {
             System.Diagnostics.Debug.WriteLine($"ThucHienGiaHan called with maPDT: {maPDT}, maTS: {maTS}, ngayGiaHan: {ngayGiaHan}, lyDo: {lyDo}, maLT: {maLT}, ngayGioThiMoi: {ngayGioThiMoi}, soTienThanhToan: {soTienThanhToan}, maYCGH: {maYCGH}");
 
-            // Điều kiện 1: Kiểm tra mã PDT và mã TS
             if (!KiemTraMaPDTvaMaTS(maPDT, maTS))
             {
                 return (false, "Mã phiếu dự thi hoặc mã thí sinh không hợp lệ!");
             }
 
-            // Điều kiện 2: Kiểm tra ngày thi hiện tại
             DateTime ngayThiHienTai = giaHanDao.LayNgayThi(maPDT);
             if (ngayThiHienTai == DateTime.MinValue)
             {
@@ -100,14 +98,12 @@ namespace PTTK_07.Business
                 return (false, "Không thể gia hạn vì ngày thi đã diễn ra!");
             }
 
-            // Điều kiện 3: Kiểm tra ngày gia hạn
             TimeSpan thoiGianChenLech = ngayThiHienTai - ngayGiaHan;
             if (thoiGianChenLech.TotalHours < 24)
             {
                 return (false, "Ngày gia hạn phải trước ngày thi hiện tại ít nhất 24 giờ!");
             }
 
-            // Điều kiện 4: Kiểm tra MaLT
             string maLTHienTai = giaHanDao.LayMaLT(maPDT);
             if (maLTHienTai == null)
             {
@@ -118,20 +114,17 @@ namespace PTTK_07.Business
                 return (false, "Trùng lịch thi!");
             }
 
-            // Điều kiện 5: Kiểm tra số lượng đăng ký
             var (soLuongHopLe, soLuongMessage) = giaHanDao.KiemTraSoLuongDangKy(maLT);
             if (!soLuongHopLe)
             {
                 return (false, soLuongMessage);
             }
 
-            // Điều kiện 6: Kiểm tra số tiền thanh toán
             if (soTienThanhToan < 0)
             {
                 return (false, "Số tiền thanh toán không được âm!");
             }
 
-            // 1. Kiểm tra và thêm PHIEU_DU_THI_GIA_HAN nếu chưa tồn tại
             bool kiemTraPhieuGiaHan = giaHanDao.KiemTraVaThemPhieuDuThiGiaHan(maPDT);
             if (!kiemTraPhieuGiaHan)
             {
@@ -142,51 +135,34 @@ namespace PTTK_07.Business
                 System.Diagnostics.Debug.WriteLine($"Added new PHIEU_DU_THI_GIA_HAN for MaPDT: {maPDT}");
             }
 
-            // 2. Cập nhật PHIEU_DU_THI_GIA_HAN (SoLanConLai - 1)
             var (capNhatSoLan, capNhatMessage) = giaHanDao.CapNhatSoLanGiaHan(maPDT);
             if (!capNhatSoLan)
             {
                 return (false, capNhatMessage);
             }
 
-            // 3. Cập nhật ngày thi và MaLT trong PHIEU_DU_THI
             bool capNhatNgayThi = giaHanDao.CapNhatNgayThi(maPDT, ngayGioThiMoi, maLT);
             if (!capNhatNgayThi)
             {
                 return (false, "Lỗi khi cập nhật ngày thi và mã lịch thi!");
             }
 
-            // 4. Giảm số lượng đã đăng ký của lịch thi hiện tại (MaLT cũ)
             bool giamSoLuong = giaHanDao.GiamSoLuongDaDangKy(maLTHienTai);
             if (!giamSoLuong)
             {
                 return (false, "Lỗi khi giảm số lượng đã đăng ký của lịch thi hiện tại!");
             }
 
-            // 5. Tăng số lượng đã đăng ký của lịch thi mới (MaLT mới)
             bool tangSoLuong = giaHanDao.TangSoLuongDaDangKy(maLT);
             if (!tangSoLuong)
             {
                 return (false, "Lỗi khi cập nhật số lượng đã đăng ký của lịch thi mới!");
             }
 
-            // 6. Nếu có số tiền thanh toán, thêm vào HOA_DON_GIA_HAN
-            if (soTienThanhToan > 0)
-            {
-                if (string.IsNullOrEmpty(maYCGH))
-                {
-                    return (false, "Lỗi dữ liệu yêu cầu gia hạn, không thể tạo hóa đơn!");
-                }
-
-                bool themHoaDon = giaHanDao.ThemHoaDonGiaHan(maPDT, maYCGH, soTienThanhToan, maNVKeToan);
-                if (!themHoaDon)
-                {
-                    return (false, "Lỗi khi tạo hóa đơn gia hạn!");
-                }
-            }
-
-            return (true, soTienThanhToan > 0 ? $"Gia hạn thành công! Số tiền thanh toán: {soTienThanhToan:C0}" : "Gia hạn thành công!");
+            // Xóa phần tạo hóa đơn ở đây
+            return (true, "Gia hạn thành công!");
         }
+
 
         // Phương thức kiểm tra MaPDT và MaTS
         public bool KiemTraMaPDTvaMaTS(string maPDT, string maTS)
