@@ -361,6 +361,7 @@ namespace PTTK_07.Forms
                 btnTimMaKQT_NVNL.Enabled = false;
                 numDiemSo_NVNL.Enabled = true;
                 btnNhapDiemSo_NVNL.Enabled = true;
+                btnEmail_NVNL.Enabled = true;  
             }
         }
 
@@ -377,6 +378,7 @@ namespace PTTK_07.Forms
             numDiemSo_NVNL.Value = 0;
             numDiemSo_NVNL.Enabled = false;
             btnNhapDiemSo_NVNL.Enabled = false;
+            btnEmail_NVNL.Enabled = false;
         }
 
         private void btnNhapDiemSo_NVNL_Click(object sender, EventArgs e)
@@ -752,6 +754,11 @@ namespace PTTK_07.Forms
             {
                 MessageBox.Show($"Lỗi khi đăng xuất: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void btnEmail_NVNL_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

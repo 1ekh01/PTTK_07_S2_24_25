@@ -61,6 +61,7 @@ namespace PTTK_07.Forms
             this.txtTenKH_NVTN = new System.Windows.Forms.TextBox();
             this.btnTimTenKH_NVTN = new System.Windows.Forms.Button();
             this.btnHuyTimTenKH_NVTN = new System.Windows.Forms.Button();
+            this.btnEmail_NVNL = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gvKetQuaThi_NVNL)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvLoaiChungChi_NVNL)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvThiSinh_NVNL)).BeginInit();
@@ -338,6 +339,7 @@ namespace PTTK_07.Forms
             // 
             // gbNVNL
             // 
+            this.gbNVNL.Controls.Add(this.btnEmail_NVNL);
             this.gbNVNL.Controls.Add(this.lbBaiThi_NVNL);
             this.gbNVNL.Controls.Add(this.gvKetQuaThi_NVNL);
             this.gbNVNL.Controls.Add(this.gvKhachHang_NVNL);
@@ -428,6 +430,18 @@ namespace PTTK_07.Forms
             this.btnHuyTimTenKH_NVTN.Visible = false;
             this.btnHuyTimTenKH_NVTN.Click += new System.EventHandler(this.btnHuyTimTenKH_NVTN_Click);
             // 
+            // btnEmail_NVNL
+            // 
+            this.btnEmail_NVNL.Enabled = false;
+            this.btnEmail_NVNL.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btnEmail_NVNL.Location = new System.Drawing.Point(545, 353);
+            this.btnEmail_NVNL.Name = "btnEmail_NVNL";
+            this.btnEmail_NVNL.Size = new System.Drawing.Size(73, 34);
+            this.btnEmail_NVNL.TabIndex = 25;
+            this.btnEmail_NVNL.Text = "Email";
+            this.btnEmail_NVNL.UseVisualStyleBackColor = true;
+            this.btnEmail_NVNL.Click += new System.EventHandler(this.btnEmail_NVNL_Click);
+            // 
             // CapChungChi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -486,5 +500,6 @@ namespace PTTK_07.Forms
         private TextBox txtTenKH_NVTN;
         private Button btnTimTenKH_NVTN;
         private Button btnHuyTimTenKH_NVTN;
+        private Button btnEmail_NVNL;
     }
 }
