@@ -27,6 +27,7 @@ namespace PTTK_07.Forms
         {
             LayDanhSachPhieuDangKy();
             LayDanhSachHoaDon();
+            FormHinhThucTT_Load();
         }
 
         private void btnLogOut_Click(object sender, EventArgs e)
