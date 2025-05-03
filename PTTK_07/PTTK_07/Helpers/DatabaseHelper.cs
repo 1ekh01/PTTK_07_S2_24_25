@@ -46,8 +46,8 @@ namespace PTTK_07.Helpers
     {
         //1.Address of SQL server and database(Connection String)
         //string ConnectionString = @"Data Source=LAPTOP-I0V0SQMU\MS_SQLSERVER22;Initial Catalog=PTTK_TTLT_ACCI;Integrated Security=True;Trust Server Certificate=True";
-        string ConnectionString = @"Data Source=DESKTOP-HFPM8Q5;Initial Catalog=PTTK_TTLT_ACCI;Integrated Security=True;Trust Server Certificate=True";
-        //string ConnectionString = @"Data Source=PLASMAPEA;Initial Catalog=PTTK_TTLT_ACCI;Integrated Security=True;Trust Server Certificate=True";
+        //string ConnectionString = @"Data Source=DESKTOP-HFPM8Q5;Initial Catalog=PTTK_TTLT_ACCI;Integrated Security=True;Trust Server Certificate=True";
+        string ConnectionString = @"Data Source=PLASMAPEA;Initial Catalog=PTTK_TTLT_ACCI;Integrated Security=True;Trust Server Certificate=True";
         //2.Establish connection(c# sqlconnection class)
         SqlConnection con = null;
 
