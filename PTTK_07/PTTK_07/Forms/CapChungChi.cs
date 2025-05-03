@@ -11,15 +11,19 @@ namespace PTTK_07.Forms
         private string maKetQuaThi;
         private string maKhachHang_ChungChi;
         private Forms.DangNhap _dangNhapForm;
-        public CapChungChi()
+        public CapChungChi(string role)
         {
             InitializeComponent();
-
-            //this.Load += UnLoad_NVTN;
-            this.Load += GV_CapChungChi_Load_NVNL;
-
-            //this.Load += UnLoad_NVNL;
-            this.Load += GV_CapChungChi_Load_NVTN;
+            if (role == "NVNL")
+            {
+                this.Load += UnLoad_NVTN;
+                this.Load += GV_CapChungChi_Load_NVNL;
+            }
+            if (role == "NVTN")
+            {
+                this.Load += UnLoad_NVNL;
+                this.Load += GV_CapChungChi_Load_NVTN;
+            }
         }
         private void UnLoad_NVNL(object sender, EventArgs e)
         {
@@ -177,7 +181,7 @@ namespace PTTK_07.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi tải danh sách kết quả thi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show($"Lỗi khi tải danh sách kết quả thi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void LayKhachHang_NVNL(string maKetQuaThi)
@@ -229,7 +233,7 @@ namespace PTTK_07.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void LayThiSinh_NVNL(string maKetQuaThi)
@@ -284,7 +288,7 @@ namespace PTTK_07.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void LayLoaiChungChi_NVNL(string maKetQuaThi)
@@ -339,7 +343,7 @@ namespace PTTK_07.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -432,7 +436,8 @@ namespace PTTK_07.Forms
             }
             catch (SqlException ex)
             {
-                MessageBox.Show($"Lỗi khi cập nhật điểm số: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show($"Lỗi khi cập nhật điểm số: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi cập nhật điểm số.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             //catch (Exception ex)
             //{
@@ -509,7 +514,7 @@ namespace PTTK_07.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi tải danh sách kết quả thi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show($"Lỗi khi tải danh sách kết quả thi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void LayDanhSachChungChi_ThiSinh_NVTN(string maKhachHang_ChungChi)
@@ -603,7 +608,7 @@ namespace PTTK_07.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi tải danh sách chứng chỉ: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show($"Lỗi khi tải danh sách chứng chỉ: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void btnTimMaKH_ChungChi_Click(object sender, EventArgs e)
@@ -629,7 +634,7 @@ namespace PTTK_07.Forms
 
         //----------------------------------------------------------------------------------------
         //Đăng xuất
-        private void btnLogOut_Click(object sender, EventArgs e)
+        private void btnDangXuat_Click(object sender, EventArgs e)
         {
             try
             {

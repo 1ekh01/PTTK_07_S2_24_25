@@ -53,7 +53,7 @@ namespace PTTK_07.Forms
             this.lbMaKH_NVTN = new System.Windows.Forms.Label();
             this.lbChungChi_ThiSinh_NVTN = new System.Windows.Forms.Label();
             this.gvChungChi_ThiSinh_NVTN = new System.Windows.Forms.DataGridView();
-            this.btnLogOut = new System.Windows.Forms.Button();
+            this.btnDangXuat = new System.Windows.Forms.Button();
             this.btnTraChungChi_NVTN = new System.Windows.Forms.Button();
             this.gbNVNL = new System.Windows.Forms.GroupBox();
             this.gbNVTN = new System.Windows.Forms.GroupBox();
@@ -309,17 +309,17 @@ namespace PTTK_07.Forms
             this.gvChungChi_ThiSinh_NVTN.Size = new System.Drawing.Size(700, 200);
             this.gvChungChi_ThiSinh_NVTN.TabIndex = 31;
             // 
-            // btnLogOut
+            // btnDangXuat
             // 
-            this.btnLogOut.BackColor = System.Drawing.Color.Salmon;
-            this.btnLogOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnLogOut.Location = new System.Drawing.Point(1450, 846);
-            this.btnLogOut.Name = "btnLogOut";
-            this.btnLogOut.Size = new System.Drawing.Size(100, 40);
-            this.btnLogOut.TabIndex = 90;
-            this.btnLogOut.Text = "Log Out";
-            this.btnLogOut.UseVisualStyleBackColor = false;
-            this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
+            this.btnDangXuat.BackColor = System.Drawing.Color.Salmon;
+            this.btnDangXuat.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btnDangXuat.Location = new System.Drawing.Point(1450, 846);
+            this.btnDangXuat.Name = "btnDangXuat";
+            this.btnDangXuat.Size = new System.Drawing.Size(100, 40);
+            this.btnDangXuat.TabIndex = 90;
+            this.btnDangXuat.Text = "Đăng xuất";
+            this.btnDangXuat.UseVisualStyleBackColor = false;
+            this.btnDangXuat.Click += new System.EventHandler(this.btnDangXuat_Click);
             // 
             // btnTraChungChi_NVTN
             // 
@@ -380,7 +380,7 @@ namespace PTTK_07.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1594, 898);
-            this.Controls.Add(this.btnLogOut);
+            this.Controls.Add(this.btnDangXuat);
             this.Controls.Add(this.gbNVNL);
             this.Controls.Add(this.gbNVTN);
             this.Name = "CapChungChi";
@@ -425,7 +425,7 @@ namespace PTTK_07.Forms
         private System.Windows.Forms.Label lbMaKH_NVTN;
         private System.Windows.Forms.Label lbChungChi_ThiSinh_NVTN;
         private System.Windows.Forms.DataGridView gvChungChi_ThiSinh_NVTN;
-        private System.Windows.Forms.Button btnLogOut;
+        private System.Windows.Forms.Button btnDangXuat;
         private System.Windows.Forms.Button btnTraChungChi_NVTN;
         private System.Windows.Forms.GroupBox gbNVNL;
         private GroupBox gbNVTN;
