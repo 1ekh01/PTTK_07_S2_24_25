@@ -34,27 +34,21 @@ namespace PTTK_07.Forms
         {
             try
             {
-                // Hiển thị hộp thoại xác nhận
-                var confirmResult = MessageBox.Show("Bạn có chắc chắn muốn đăng xuất?",
-                                                  "Xác nhận đăng xuất",
-                                                  MessageBoxButtons.YesNo,
-                                                  MessageBoxIcon.Question);
-
-                if (confirmResult == DialogResult.Yes)
+                // Hiển thị form xác nhận tùy chỉnh
+                using (var _dangXuatForm = new Forms.DangXuat("Bạn có chắc chắn muốn đăng xuất?"))
                 {
-                    //// Mở lại form đăng nhập
-                    //var loginForm = new DangNhap(); // Thay LoginForm bằng tên form đăng nhập thực tế
-                    //loginForm.Show();
-                    if (_dangNhapForm == null || _dangNhapForm.IsDisposed)
-                    {
-                        _dangNhapForm = new Forms.DangNhap();
-                    }
-                    _dangNhapForm.Show();
-                    _dangNhapForm.FormClosed += (s, args) => Application.Exit();
-                    this.Hide();
+                    var confirmResult = _dangXuatForm.ShowDialog();
 
-                    // Đóng form hiện tại
-                    //this.Close();
+                    if (confirmResult == DialogResult.Yes) // Nút "Có"
+                    {
+                        if (_dangNhapForm == null || _dangNhapForm.IsDisposed)
+                        {
+                            _dangNhapForm = new Forms.DangNhap();
+                        }
+                        _dangNhapForm.Show();
+                        _dangNhapForm.FormClosed += (s, args) => Application.Exit();
+                        this.Hide();
+                    }
                 }
             }
             catch (Exception ex)
@@ -123,6 +117,27 @@ namespace PTTK_07.Forms
             try
             {
                 var db = new DB();
+
+                var checkStatusQuery = $"SELECT TrangThai FROM PHIEU_DANG_KY WHERE MaPDK = '{NewMaPDK}'";
+                var reader = db.Select(checkStatusQuery);
+
+                if (reader != null && reader.Read())
+                {
+                    string trangThai = reader["TrangThai"].ToString();
+                    reader.Close();
+
+                    if (trangThai == "Đã TT")
+                    {
+                        MessageBox.Show("Thêm hóa đơn thất bại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Thêm hóa đơn thất bại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 var parameters = new Dictionary<string, object>
         {
             { "@v_MaPDK", NewMaPDK },
@@ -151,6 +166,7 @@ namespace PTTK_07.Forms
                 MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void btnTimMaPDK_Click_1(object sender, EventArgs e)
         {
