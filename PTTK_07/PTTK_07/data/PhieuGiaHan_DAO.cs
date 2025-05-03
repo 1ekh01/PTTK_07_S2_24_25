@@ -8,6 +8,8 @@ namespace PTTK_07.Data
     public class PhieuGiaHan_DAO
     {
         private string connectionString = "Data Source=LAPTOP-I20CCGIS;Initial Catalog=PTTK_TTLT_ACCI;Integrated Security=True";
+
+        // Phương thức lấy danh sách MaPDT từ PHIEU_DU_THI
         public List<string> LayDanhSachMaPDT()
         {
             List<string> maPDTList = new List<string>();
@@ -90,7 +92,6 @@ namespace PTTK_07.Data
                 try
                 {
                     conn.Open();
-                    // Lấy MaLT và LoaiChungChi từ PHIEU_DU_THI
                     string maLTHienTai = LayMaLT(maPDT);
                     if (string.IsNullOrEmpty(maLTHienTai))
                     {
@@ -113,7 +114,6 @@ namespace PTTK_07.Data
                         return ngayThiList;
                     }
 
-                    // Lấy danh sách NgayGioThi và MaLT từ LICH_THI dựa trên LoaiChungChi
                     string ngayThiQuery = @"
                         SELECT MaLT, NgayGioThi
                         FROM LICH_THI
@@ -130,7 +130,7 @@ namespace PTTK_07.Data
                         DateTime ngayThi = Convert.ToDateTime(reader["NgayGioThi"]);
                         string maLT = reader["MaLT"].ToString();
                         TimeSpan thoiGianChenLech = ngayThi - ngayGiaHan;
-                        if (thoiGianChenLech.TotalHours >= 24) // Đáp ứng điều kiện chênh lệch 24 giờ
+                        if (thoiGianChenLech.TotalHours >= 24)
                         {
                             ngayThiList.Add((ngayThi, maLT));
                         }
@@ -144,6 +144,38 @@ namespace PTTK_07.Data
             }
 
             return ngayThiList;
+        }
+
+        // Phương thức mới: Lấy danh sách hóa đơn từ HOA_DON_GIA_HAN
+        public DataTable LayDanhSachHoaDon(string maHD = null)
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    string query = "SELECT MaHDGH, NgayGioThanhToan, MaPDT, MaYCGH, SoTienThanhToan, MaNVKeToan FROM HOA_DON_GIA_HAN";
+                    if (!string.IsNullOrEmpty(maHD))
+                    {
+                        query += " WHERE MaHD LIKE '%' + @MaHD + '%'";
+                    }
+
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    if (!string.IsNullOrEmpty(maHD))
+                    {
+                        cmd.Parameters.AddWithValue("@MaHD", maHD);
+                    }
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    adapter.Fill(dt);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Error in LayDanhSachHoaDon: {ex.Message}");
+                }
+            }
+            return dt;
         }
         public bool KiemTraMaPDTvaMaTS(string maPDT, string maTS)
         {
