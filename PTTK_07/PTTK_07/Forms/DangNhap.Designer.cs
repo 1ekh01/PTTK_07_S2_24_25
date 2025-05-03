@@ -112,8 +112,7 @@ namespace PTTK_07.Forms
             this.cbUseCase.Items.AddRange(new object[] {
             "Đăng ký thi",
             "Thanh toán",
-            "Gia hạn Đặc biệt",
-            "Gia hạn Tính phí",
+            "Gia hạn lịch thi",
             "Cấp chứng chỉ"});
             this.cbUseCase.Location = new System.Drawing.Point(393, 384);
             this.cbUseCase.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);

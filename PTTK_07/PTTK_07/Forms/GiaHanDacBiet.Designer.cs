@@ -39,101 +39,89 @@
             // lblMaPDT
             // 
             this.lblMaPDT.AutoSize = true;
-            this.lblMaPDT.Location = new System.Drawing.Point(40, 37);
-            this.lblMaPDT.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblMaPDT.Location = new System.Drawing.Point(30, 30);
             this.lblMaPDT.Name = "lblMaPDT";
-            this.lblMaPDT.Size = new System.Drawing.Size(60, 16);
+            this.lblMaPDT.Size = new System.Drawing.Size(50, 13);
             this.lblMaPDT.TabIndex = 17;
             this.lblMaPDT.Text = "Mã PDT:";
             // 
             // txtMaPDT
             // 
-            this.txtMaPDT.Location = new System.Drawing.Point(160, 33);
-            this.txtMaPDT.Margin = new System.Windows.Forms.Padding(4);
+            this.txtMaPDT.Location = new System.Drawing.Point(120, 27);
             this.txtMaPDT.Name = "txtMaPDT";
-            this.txtMaPDT.Size = new System.Drawing.Size(265, 22);
+            this.txtMaPDT.Size = new System.Drawing.Size(200, 20);
             this.txtMaPDT.TabIndex = 0;
             // 
             // lblMaTS
             // 
             this.lblMaTS.AutoSize = true;
-            this.lblMaTS.Location = new System.Drawing.Point(40, 74);
-            this.lblMaTS.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblMaTS.Location = new System.Drawing.Point(30, 60);
             this.lblMaTS.Name = "lblMaTS";
-            this.lblMaTS.Size = new System.Drawing.Size(50, 16);
+            this.lblMaTS.Size = new System.Drawing.Size(42, 13);
             this.lblMaTS.TabIndex = 16;
             this.lblMaTS.Text = "Mã TS:";
             // 
             // txtMaTS
             // 
-            this.txtMaTS.Location = new System.Drawing.Point(160, 70);
-            this.txtMaTS.Margin = new System.Windows.Forms.Padding(4);
+            this.txtMaTS.Location = new System.Drawing.Point(120, 57);
             this.txtMaTS.Name = "txtMaTS";
-            this.txtMaTS.Size = new System.Drawing.Size(265, 22);
+            this.txtMaTS.Size = new System.Drawing.Size(200, 20);
             this.txtMaTS.TabIndex = 1;
             // 
             // lblLyDo
             // 
             this.lblLyDo.AutoSize = true;
-            this.lblLyDo.Location = new System.Drawing.Point(40, 113);
-            this.lblLyDo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblLyDo.Location = new System.Drawing.Point(30, 92);
             this.lblLyDo.Name = "lblLyDo";
-            this.lblLyDo.Size = new System.Drawing.Size(45, 16);
+            this.lblLyDo.Size = new System.Drawing.Size(38, 13);
             this.lblLyDo.TabIndex = 14;
             this.lblLyDo.Text = "Lý Do:";
             // 
             // txtLyDo
             // 
-            this.txtLyDo.Location = new System.Drawing.Point(160, 109);
-            this.txtLyDo.Margin = new System.Windows.Forms.Padding(4);
+            this.txtLyDo.Location = new System.Drawing.Point(120, 89);
             this.txtLyDo.Name = "txtLyDo";
-            this.txtLyDo.Size = new System.Drawing.Size(265, 22);
+            this.txtLyDo.Size = new System.Drawing.Size(200, 20);
             this.txtLyDo.TabIndex = 3;
             // 
             // lblPhiGiaHan
             // 
             this.lblPhiGiaHan.AutoSize = true;
-            this.lblPhiGiaHan.Location = new System.Drawing.Point(40, 150);
-            this.lblPhiGiaHan.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPhiGiaHan.Location = new System.Drawing.Point(30, 122);
             this.lblPhiGiaHan.Name = "lblPhiGiaHan";
-            this.lblPhiGiaHan.Size = new System.Drawing.Size(81, 16);
+            this.lblPhiGiaHan.Size = new System.Drawing.Size(69, 13);
             this.lblPhiGiaHan.TabIndex = 13;
             this.lblPhiGiaHan.Text = "Phí Gia Hạn:";
             // 
             // txtPhiGiaHan
             // 
-            this.txtPhiGiaHan.Location = new System.Drawing.Point(160, 146);
-            this.txtPhiGiaHan.Margin = new System.Windows.Forms.Padding(4);
+            this.txtPhiGiaHan.Location = new System.Drawing.Point(120, 119);
             this.txtPhiGiaHan.Name = "txtPhiGiaHan";
-            this.txtPhiGiaHan.Size = new System.Drawing.Size(265, 22);
+            this.txtPhiGiaHan.Size = new System.Drawing.Size(200, 20);
             this.txtPhiGiaHan.TabIndex = 4;
             // 
             // lblNgayThi
             // 
             this.lblNgayThi.AutoSize = true;
-            this.lblNgayThi.Location = new System.Drawing.Point(40, 187);
-            this.lblNgayThi.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblNgayThi.Location = new System.Drawing.Point(30, 152);
             this.lblNgayThi.Name = "lblNgayThi";
-            this.lblNgayThi.Size = new System.Drawing.Size(113, 16);
+            this.lblNgayThi.Size = new System.Drawing.Size(93, 13);
             this.lblNgayThi.TabIndex = 12;
             this.lblNgayThi.Text = "Ngày Thi Khả Thi:";
             // 
             // lstNgayThi
             // 
             this.lstNgayThi.FormattingEnabled = true;
-            this.lstNgayThi.ItemHeight = 16;
-            this.lstNgayThi.Location = new System.Drawing.Point(160, 187);
-            this.lstNgayThi.Margin = new System.Windows.Forms.Padding(4);
+            this.lstNgayThi.Location = new System.Drawing.Point(120, 152);
             this.lstNgayThi.Name = "lstNgayThi";
-            this.lstNgayThi.Size = new System.Drawing.Size(265, 116);
+            this.lstNgayThi.Size = new System.Drawing.Size(200, 95);
             this.lstNgayThi.TabIndex = 5;
             // 
             // btnKiemTra
             // 
-            this.btnKiemTra.Location = new System.Drawing.Point(160, 322);
-            this.btnKiemTra.Margin = new System.Windows.Forms.Padding(4);
+            this.btnKiemTra.Location = new System.Drawing.Point(120, 262);
             this.btnKiemTra.Name = "btnKiemTra";
-            this.btnKiemTra.Size = new System.Drawing.Size(120, 37);
+            this.btnKiemTra.Size = new System.Drawing.Size(90, 30);
             this.btnKiemTra.TabIndex = 6;
             this.btnKiemTra.Text = "Kiểm Tra";
             this.btnKiemTra.UseVisualStyleBackColor = true;
@@ -141,10 +129,9 @@
             // 
             // btnGiaHan
             // 
-            this.btnGiaHan.Location = new System.Drawing.Point(307, 322);
-            this.btnGiaHan.Margin = new System.Windows.Forms.Padding(4);
+            this.btnGiaHan.Location = new System.Drawing.Point(230, 262);
             this.btnGiaHan.Name = "btnGiaHan";
-            this.btnGiaHan.Size = new System.Drawing.Size(120, 37);
+            this.btnGiaHan.Size = new System.Drawing.Size(90, 30);
             this.btnGiaHan.TabIndex = 7;
             this.btnGiaHan.Text = "Gia Hạn";
             this.btnGiaHan.UseVisualStyleBackColor = true;
@@ -153,27 +140,24 @@
             // lblKiemTraHoaDon
             // 
             this.lblKiemTraHoaDon.AutoSize = true;
-            this.lblKiemTraHoaDon.Location = new System.Drawing.Point(533, 37);
-            this.lblKiemTraHoaDon.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblKiemTraHoaDon.Location = new System.Drawing.Point(400, 30);
             this.lblKiemTraHoaDon.Name = "lblKiemTraHoaDon";
-            this.lblKiemTraHoaDon.Size = new System.Drawing.Size(120, 16);
+            this.lblKiemTraHoaDon.Size = new System.Drawing.Size(98, 13);
             this.lblKiemTraHoaDon.TabIndex = 11;
             this.lblKiemTraHoaDon.Text = "Kiểm Tra Hóa Đơn:";
             // 
             // txtKiemTraHoaDon
             // 
-            this.txtKiemTraHoaDon.Location = new System.Drawing.Point(733, 37);
-            this.txtKiemTraHoaDon.Margin = new System.Windows.Forms.Padding(4);
+            this.txtKiemTraHoaDon.Location = new System.Drawing.Point(550, 30);
             this.txtKiemTraHoaDon.Name = "txtKiemTraHoaDon";
-            this.txtKiemTraHoaDon.Size = new System.Drawing.Size(199, 22);
+            this.txtKiemTraHoaDon.Size = new System.Drawing.Size(150, 20);
             this.txtKiemTraHoaDon.TabIndex = 8;
             // 
             // btnTimKiemHoaDon
             // 
-            this.btnTimKiemHoaDon.Location = new System.Drawing.Point(673, 33);
-            this.btnTimKiemHoaDon.Margin = new System.Windows.Forms.Padding(4);
+            this.btnTimKiemHoaDon.Location = new System.Drawing.Point(505, 27);
             this.btnTimKiemHoaDon.Name = "btnTimKiemHoaDon";
-            this.btnTimKiemHoaDon.Size = new System.Drawing.Size(53, 31);
+            this.btnTimKiemHoaDon.Size = new System.Drawing.Size(40, 25);
             this.btnTimKiemHoaDon.TabIndex = 9;
             this.btnTimKiemHoaDon.Text = "Tìm";
             this.btnTimKiemHoaDon.UseVisualStyleBackColor = true;
@@ -182,20 +166,20 @@
             // gridViewHoaDon
             // 
             this.gridViewHoaDon.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.gridViewHoaDon.Location = new System.Drawing.Point(533, 74);
-            this.gridViewHoaDon.Margin = new System.Windows.Forms.Padding(4);
+            this.gridViewHoaDon.Location = new System.Drawing.Point(400, 60);
             this.gridViewHoaDon.Name = "gridViewHoaDon";
             this.gridViewHoaDon.ReadOnly = true;
             this.gridViewHoaDon.RowHeadersWidth = 51;
-            this.gridViewHoaDon.Size = new System.Drawing.Size(881, 185);
+            this.gridViewHoaDon.Size = new System.Drawing.Size(661, 150);
             this.gridViewHoaDon.TabIndex = 10;
             // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.Salmon;
-            this.button1.Location = new System.Drawing.Point(997, 383);
+            this.button1.Location = new System.Drawing.Point(748, 311);
+            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 34);
+            this.button1.Size = new System.Drawing.Size(75, 28);
             this.button1.TabIndex = 18;
             this.button1.Text = "Đăng xuất ";
             this.button1.UseVisualStyleBackColor = false;
@@ -203,9 +187,10 @@
             // 
             // btnReset
             // 
-            this.btnReset.Location = new System.Drawing.Point(997, 266);
+            this.btnReset.Location = new System.Drawing.Point(748, 216);
+            this.btnReset.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnReset.Name = "btnReset";
-            this.btnReset.Size = new System.Drawing.Size(118, 25);
+            this.btnReset.Size = new System.Drawing.Size(88, 20);
             this.btnReset.TabIndex = 9;
             this.btnReset.Text = "Làm mới trang";
             this.btnReset.UseVisualStyleBackColor = true;
@@ -213,10 +198,10 @@
             // 
             // GiaHanDacBiet
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1493, 665);
+            this.ClientSize = new System.Drawing.Size(1120, 540);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.gridViewHoaDon);
             this.Controls.Add(this.btnReset);
@@ -235,9 +220,8 @@
             this.Controls.Add(this.lblMaTS);
             this.Controls.Add(this.txtMaPDT);
             this.Controls.Add(this.lblMaPDT);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "GiaHanDacBiet";
-            this.Text = "Gia Hạn Đặc Biệt";
+            this.Text = "Gia hạn lịch thi";
             ((System.ComponentModel.ISupportInitialize)(this.gridViewHoaDon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

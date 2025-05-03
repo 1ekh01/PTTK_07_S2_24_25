@@ -194,12 +194,6 @@
     <Compile Include="Forms\GiaHanDacBiet.Designer.cs">
       <DependentUpon>GiaHanDacBiet.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\GiaHanTinhPhi.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\GiaHanTinhPhi.Designer.cs">
-      <DependentUpon>GiaHanTinhPhi.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\LapPhieuDangKy.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -235,9 +229,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\GiaHanDacBiet.resx">
       <DependentUpon>GiaHanDacBiet.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\GiaHanTinhPhi.resx">
-      <DependentUpon>GiaHanTinhPhi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LapPhieuDangKy.resx">
       <DependentUpon>LapPhieuDangKy.cs</DependentUpon>

@@ -22,7 +22,6 @@ namespace PTTK_07.Forms
         private Forms.LapPhieuDangKy _lapPhieuForm;
         private Forms.ThanhToan _thanhToanForm;
         private Forms.GiaHanDacBiet _giaHanDacBietForm;
-        private Forms.GiaHanTinhPhi _giaHanTinhPhiForm;
         private Forms.CapChungChi _capChungChiForm;
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
@@ -56,7 +55,7 @@ namespace PTTK_07.Forms
                     this.Hide();
                 }
             }
-            else if (usecase == "Gia hạn Đặc biệt")
+            else if (usecase == "Gia hạn lịch thi")
             {
                 if (username == "NVTN" && password == "NVTN")
                 {
@@ -76,29 +75,6 @@ namespace PTTK_07.Forms
                     }
                     _giaHanDacBietForm.Show();
                     _giaHanDacBietForm.FormClosed += (s, args) => Application.Exit();
-                    this.Hide();
-                }
-            }
-            else if (usecase == "Gia hạn Tính phí")
-            {
-                if (username == "NVTN" && password == "NVTN")
-                {
-                    if (_giaHanTinhPhiForm == null || _giaHanTinhPhiForm.IsDisposed)
-                    {
-                        _giaHanTinhPhiForm = new Forms.GiaHanTinhPhi();
-                    }
-                    _giaHanTinhPhiForm.Show();
-                    _giaHanTinhPhiForm.FormClosed += (s, args) => Application.Exit();
-                    this.Hide();
-                }
-                else if (username == "NVKT" && password == "NVKT")
-                {
-                    if (_giaHanTinhPhiForm == null || _giaHanTinhPhiForm.IsDisposed)
-                    {
-                        _giaHanTinhPhiForm = new Forms.GiaHanTinhPhi();
-                    }
-                    _giaHanTinhPhiForm.Show();
-                    _giaHanTinhPhiForm.FormClosed += (s, args) => Application.Exit();
                     this.Hide();
                 }
             }
