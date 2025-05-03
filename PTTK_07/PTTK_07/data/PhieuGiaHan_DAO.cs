@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -7,8 +8,143 @@ namespace PTTK_07.Data
     public class PhieuGiaHan_DAO
     {
         private string connectionString = "Data Source=LAPTOP-I20CCGIS;Initial Catalog=PTTK_TTLT_ACCI;Integrated Security=True";
+        public List<string> LayDanhSachMaPDT()
+        {
+            List<string> maPDTList = new List<string>();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT MaPDT FROM PHIEU_DU_THI", conn);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        maPDTList.Add(reader["MaPDT"].ToString());
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Error in LayDanhSachMaPDT: {ex.Message}");
+                }
+            }
+            return maPDTList;
+        }
 
-        // Kiểm tra MãPDT và MãTS có tồn tại không
+        // Phương thức kiểm tra và thêm PHIEU_DU_THI_GIA_HAN
+        public bool KiemTraVaThemPhieuDuThiGiaHan(string maPDT)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("dbo.sp_KiemTraVaThemPhieuDuThiGiaHan", conn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MaPDT", maPDT);
+                    SqlParameter resultParam = new SqlParameter("@Result", SqlDbType.Bit)
+                    {
+                        Direction = ParameterDirection.Output
+                    };
+                    cmd.Parameters.Add(resultParam);
+                    cmd.ExecuteNonQuery();
+                    bool result = (bool)resultParam.Value;
+                    return result;
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Error in KiemTraVaThemPhieuDuThiGiaHan: {ex.Message}");
+                    return false;
+                }
+            }
+        }
+
+        // Phương thức xử lý vòng lặp để kiểm tra và thêm cho tất cả MaPDT
+        public void KiemTraVaThemTatCaPhieuDuThiGiaHan()
+        {
+            List<string> maPDTList = LayDanhSachMaPDT();
+            foreach (string maPDT in maPDTList)
+            {
+                try
+                {
+                    System.Diagnostics.Debug.WriteLine($"Đang xử lý MaPDT: {maPDT}");
+                    bool result = KiemTraVaThemPhieuDuThiGiaHan(maPDT);
+                    System.Diagnostics.Debug.WriteLine($"Kết quả cho MaPDT {maPDT}: {(result ? "Thêm thành công" : "Đã tồn tại")}");
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Lỗi khi xử lý MaPDT {maPDT}: {ex.Message}");
+                }
+            }
+        }
+
+        // Phương thức mới: Lấy danh sách ngày thi khả thi và MaLT dựa trên LoaiChungChi và điều kiện
+        public List<(DateTime NgayGioThi, string MaLT)> LayDanhSachNgayThiKhaThi(string maPDT, DateTime ngayGiaHan)
+        {
+            List<(DateTime NgayGioThi, string MaLT)> ngayThiList = new List<(DateTime, string)>();
+            DateTime ngayHienTai = DateTime.Now;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    // Lấy MaLT và LoaiChungChi từ PHIEU_DU_THI
+                    string maLTHienTai = LayMaLT(maPDT);
+                    if (string.IsNullOrEmpty(maLTHienTai))
+                    {
+                        System.Diagnostics.Debug.WriteLine("No MaLT found for MaPDT: " + maPDT);
+                        return ngayThiList;
+                    }
+
+                    string loaiChungChiQuery = @"
+                        SELECT lt.LoaiChungChi
+                        FROM LICH_THI lt
+                        JOIN PHIEU_DU_THI pdt ON pdt.MaLT = lt.MaLT
+                        WHERE pdt.MaPDT = @MaPDT";
+                    SqlCommand cmdLoaiCC = new SqlCommand(loaiChungChiQuery, conn);
+                    cmdLoaiCC.Parameters.AddWithValue("@MaPDT", maPDT);
+                    string loaiChungChi = cmdLoaiCC.ExecuteScalar()?.ToString();
+
+                    if (string.IsNullOrEmpty(loaiChungChi))
+                    {
+                        System.Diagnostics.Debug.WriteLine("No LoaiChungChi found for MaPDT: " + maPDT);
+                        return ngayThiList;
+                    }
+
+                    // Lấy danh sách NgayGioThi và MaLT từ LICH_THI dựa trên LoaiChungChi
+                    string ngayThiQuery = @"
+                        SELECT MaLT, NgayGioThi
+                        FROM LICH_THI
+                        WHERE LoaiChungChi = @LoaiChungChi
+                        AND NgayGioThi > @NgayHienTai
+                        AND SoLuongToiDa > SoLuongDaDangKy";
+                    SqlCommand cmdNgayThi = new SqlCommand(ngayThiQuery, conn);
+                    cmdNgayThi.Parameters.AddWithValue("@LoaiChungChi", loaiChungChi);
+                    cmdNgayThi.Parameters.AddWithValue("@NgayHienTai", ngayHienTai);
+                    SqlDataReader reader = cmdNgayThi.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        DateTime ngayThi = Convert.ToDateTime(reader["NgayGioThi"]);
+                        string maLT = reader["MaLT"].ToString();
+                        TimeSpan thoiGianChenLech = ngayThi - ngayGiaHan;
+                        if (thoiGianChenLech.TotalHours >= 24) // Đáp ứng điều kiện chênh lệch 24 giờ
+                        {
+                            ngayThiList.Add((ngayThi, maLT));
+                        }
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Error in LayDanhSachNgayThiKhaThi: {ex.Message}");
+                }
+            }
+
+            return ngayThiList;
+        }
         public bool KiemTraMaPDTvaMaTS(string maPDT, string maTS)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -213,6 +349,33 @@ namespace PTTK_07.Data
             }
         }
 
+        public bool GiamSoLuongDaDangKy(string maLT)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(
+                        "UPDATE LICH_THI SET SoLuongDaDangKy = SoLuongDaDangKy - 1 WHERE MaLT = @MaLT AND SoLuongDaDangKy > 0", conn);
+                    cmd.Parameters.AddWithValue("@MaLT", maLT);
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected == 0)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Failed to decrease SoLuongDaDangKy for MaLT: {maLT}. Possibly SoLuongDaDangKy is already 0 or MaLT does not exist.");
+                        return false;
+                    }
+                    System.Diagnostics.Debug.WriteLine($"Successfully decreased SoLuongDaDangKy for MaLT: {maLT}");
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Error in GiamSoLuongDaDangKy: {ex.Message}");
+                    return false;
+                }
+            }
+        }
+
         public bool ThemHoaDonGiaHan(string maPDT, string maYCGH, decimal phiGiaHan, string maNVKeToan = null)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -220,48 +383,41 @@ namespace PTTK_07.Data
                 try
                 {
                     conn.Open();
-                    string maHDGH = GenerateMaHDGH();
+                    System.Diagnostics.Debug.WriteLine($"Attempting to add HoaDonGiaHan with maPDT: {maPDT}, maYCGH: {maYCGH}, phiGiaHan: {phiGiaHan}");
+
+                    // Gán mặc định maNVKeToan là "NHVN000003" nếu null
+                    string defaultMaNVKeToan = string.IsNullOrEmpty(maNVKeToan) ? "NHVN000003" : maNVKeToan;
 
                     SqlCommand cmd = new SqlCommand(
-                        "INSERT INTO HOA_DON_GIA_HAN (MaHDGH, NgayGioThanhToan, SoTienThanhToan, HinhThucThanhToan, TrangThai, MaPDT, MaYCGH, MaNVKeToan) " +
-                        "VALUES (@MaHDGH, GETDATE(), @SoTienThanhToan, @HinhThucThanhToan, @TrangThai, @MaPDT, @MaYCGH, @MaNVKeToan)", conn);
-                    cmd.Parameters.AddWithValue("@MaHDGH", maHDGH);
-                    cmd.Parameters.AddWithValue("@SoTienThanhToan", (double)phiGiaHan); // Chuyển thành double vì cột SoTienThanhToan có thể là FLOAT
+                        "INSERT INTO HOA_DON_GIA_HAN (NgayGioThanhToan, SoTienThanhToan, HinhThucThanhToan, TrangThai, MaPDT, MaYCGH, MaNVKeToan) " +
+                        "OUTPUT INSERTED.MaHDGH VALUES (@NgayGioThanhToan, @SoTienThanhToan, @HinhThucThanhToan, @TrangThai, @MaPDT, @MaYCGH, @MaNVKeToan)", conn);
+                    cmd.Parameters.AddWithValue("@NgayGioThanhToan", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@SoTienThanhToan", (double)phiGiaHan);
                     cmd.Parameters.AddWithValue("@HinhThucThanhToan", "Chuyển khoản");
-                    cmd.Parameters.AddWithValue("@TrangThai", "Chưa thanh toán");
+                    cmd.Parameters.AddWithValue("@TrangThai", "Đã TT");
                     cmd.Parameters.AddWithValue("@MaPDT", maPDT);
                     cmd.Parameters.AddWithValue("@MaYCGH", maYCGH);
-                    cmd.Parameters.AddWithValue("@MaNVKeToan", (object)maNVKeToan ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@MaNVKeToan", defaultMaNVKeToan);
 
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    return rowsAffected > 0;
+                    string maHDGH = cmd.ExecuteScalar()?.ToString();
+                    if (string.IsNullOrEmpty(maHDGH))
+                    {
+                        System.Diagnostics.Debug.WriteLine("Failed to retrieve MaHDGH after insert.");
+                        return false;
+                    }
+
+                    System.Diagnostics.Debug.WriteLine($"Successfully added HoaDonGiaHan with MaHDGH: {maHDGH}");
+                    return true;
                 }
-                catch (Exception ex)
+                catch (SqlException ex)
                 {
-                    System.Diagnostics.Debug.WriteLine($"Error in ThemHoaDonGiaHan: {ex.Message}");
+                    System.Diagnostics.Debug.WriteLine($"SQL Error in ThemHoaDonGiaHan: {ex.Number} - {ex.Message}");
                     return false;
                 }
-            }
-        }
-
-        private string GenerateMaHDGH()
-        {
-            string prefix = $"HDGH_{DateTime.Now:yyyyMMdd}";
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                try
-                {
-                    conn.Open();
-                    SqlCommand cmd = new SqlCommand(
-                        "SELECT COUNT(*) FROM HOA_DON_GIA_HAN WHERE MaHDGH LIKE @Prefix + '%'", conn);
-                    cmd.Parameters.AddWithValue("@Prefix", prefix);
-                    int count = (int)cmd.ExecuteScalar();
-                    return $"{prefix}_{(count + 1):D3}";
-                }
                 catch (Exception ex)
                 {
-                    System.Diagnostics.Debug.WriteLine($"Error in GenerateMaHDGH: {ex.Message}");
-                    return $"{prefix}_001";
+                    System.Diagnostics.Debug.WriteLine($"General Error in ThemHoaDonGiaHan: {ex.Message}");
+                    return false;
                 }
             }
         }

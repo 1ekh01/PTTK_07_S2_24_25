@@ -16,7 +16,7 @@ namespace PTTK_07
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Forms.GiaHanDacBiet());
+            Application.Run(new Forms.DangNhap());
         }
     }
 }
