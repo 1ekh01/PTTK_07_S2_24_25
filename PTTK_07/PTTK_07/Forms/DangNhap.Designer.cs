@@ -110,8 +110,7 @@ namespace PTTK_07.Forms
             this.cbUseCase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.cbUseCase.FormattingEnabled = true;
             this.cbUseCase.Items.AddRange(new object[] {
-            "Đăng ký thi Cá nhân",
-            "Lập Phiếu đăng ký",
+            "Đăng ký thi",
             "Thanh toán",
             "Gia hạn Đặc biệt",
             "Gia hạn Tính phí",

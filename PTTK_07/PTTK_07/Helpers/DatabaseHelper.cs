@@ -45,8 +45,9 @@ namespace PTTK_07.Helpers
     class DB
     {
         //1.Address of SQL server and database(Connection String)
+        //string ConnectionString = @"Data Source=LAPTOP-I0V0SQMU\MS_SQLSERVER22;Initial Catalog=PTTK_TTLT_ACCI;Integrated Security=True;Trust Server Certificate=True";
         string ConnectionString = @"Data Source=DESKTOP-HFPM8Q5;Initial Catalog=PTTK_TTLT_ACCI;Integrated Security=True;Trust Server Certificate=True";
-        //string ConnectionString = @"Data Source=DESKTOP-HFPM8Q5;Initial Catalog=PTTK_TTLT_ACCI;Integrated Security=True;Trust Server Certificate=True";
+        //string ConnectionString = @"Data Source=PLASMAPEA;Initial Catalog=PTTK_TTLT_ACCI;Integrated Security=True;Trust Server Certificate=True";
         //2.Establish connection(c# sqlconnection class)
         SqlConnection con = null;
 
@@ -78,6 +79,40 @@ namespace PTTK_07.Helpers
                 //6.Close connection(c# sqlconnection close)
                 con.Close();
             }
+        }
+        public string ExecuteFunctionGetReturn(string functionName, string parameterValue)
+        {
+            string returnValue = null;
+            try
+            {
+                // Open connection
+                con.Open();
+
+                // Prepare SQL query to call the function
+                string query = $"SELECT dbo.{functionName}(@param)";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.Parameters.AddWithValue("@param", parameterValue);
+
+                // Execute query and get scalar result
+                object result = cmd.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    returnValue = result.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // Close connection
+                if (con.State == System.Data.ConnectionState.Open)
+                {
+                    con.Close();
+                }
+            }
+            return returnValue;
         }
 
         public SqlDataReader Select(string Query)

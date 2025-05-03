@@ -348,7 +348,7 @@ namespace PTTK_07.Forms
             }
         }
 
-        private void btnTim_Click(object sender, EventArgs e)
+        private void btnTimMaKQT_NVNL_Click(object sender, EventArgs e)
         {
             maKetQuaThi = txtMaKQT_NVNL.Text.Trim();
             if (!string.IsNullOrWhiteSpace(maKetQuaThi))
@@ -364,7 +364,7 @@ namespace PTTK_07.Forms
             }
         }
 
-        private void btnHuyTimMaKQT_Click(object sender, EventArgs e)
+        private void btnHuyTimMaKQT_NVNL_Click(object sender, EventArgs e)
         {
             maKetQuaThi = "M";
             LayDanhSachKetQuaThi_NVNL(maKetQuaThi);
@@ -562,7 +562,6 @@ namespace PTTK_07.Forms
                             };
                             gvChungChi_ThiSinh_NVTN.Columns.Insert(0, checkBoxColumn); // Thêm cột checkbox ở đầu
                         }
-
                         // Tùy chỉnh các cột khác
                         if (gvChungChi_ThiSinh_NVTN.Columns.Count > 0)
                         {
@@ -586,6 +585,10 @@ namespace PTTK_07.Forms
                             {
                                 gvChungChi_ThiSinh_NVTN.Columns["Ngày sinh"].Width = 110;
                             }
+                            if (gvChungChi_ThiSinh_NVTN.Columns["Trạng thái"] != null)
+                            {
+                                gvChungChi_ThiSinh_NVTN.Columns["Trạng thái"].Width = 120;
+                            }
                             if (gvChungChi_ThiSinh_NVTN.Columns["Xếp hạng"] != null)
                             {
                                 gvChungChi_ThiSinh_NVTN.Columns["Xếp hạng"].Width = 110;
@@ -597,6 +600,17 @@ namespace PTTK_07.Forms
                             if (gvChungChi_ThiSinh_NVTN.Columns["Ngày hết hạn"] != null)
                             {
                                 gvChungChi_ThiSinh_NVTN.Columns["Ngày hết hạn"].Width = 130;
+                            }
+                        }
+                        foreach (DataGridViewRow row in gvChungChi_ThiSinh_NVTN.Rows)
+                        {
+                            if (row.Cells["Trạng thái"].Value?.ToString() == "Đã trả")
+                            {
+                                DataGridViewCheckBoxCell chkCell = row.Cells["Select"] as DataGridViewCheckBoxCell;
+                                chkCell.ReadOnly = true;
+
+                                // Tô màu để báo hiệu checkbox không khả dụng
+                                row.Cells["Select"].Style.BackColor = Color.LightGray;
                             }
                         }
                     }
@@ -621,6 +635,8 @@ namespace PTTK_07.Forms
                 LayDanhSachChungChi_ThiSinh_NVTN(maKhachHang_ChungChi);
                 txtMaKH_NVTN.Enabled = false;
                 btnTimMaKH_NVTN.Enabled = false;
+                txtTenKH_NVTN.Enabled = false;
+                btnTimTenKH_NVTN.Enabled = false;
             }
         }
         private void btnHuyTimMaKH_ChungChi_Click(object sender, EventArgs e)
@@ -631,8 +647,84 @@ namespace PTTK_07.Forms
             txtMaKH_NVTN.Enabled = true;
             txtMaKH_NVTN.Text = "";
             btnTimMaKH_NVTN.Enabled = true;
+            txtTenKH_NVTN.Enabled = true;
+            txtTenKH_NVTN.Text = "";
+            btnTimTenKH_NVTN.Enabled = true;
         }
+        private void btnTimTenKH_NVTN_Click(object sender, EventArgs e)
+        {
+            string tenKhachHang_ChungChi = txtMaKH_NVTN.Text.Trim();
+            var db = new DB();
+            maKhachHang_ChungChi = db.ExecuteFunctionGetReturn("F_TenKH_to_MaKH_NVNL", tenKhachHang_ChungChi);
+            if (!string.IsNullOrWhiteSpace(maKhachHang_ChungChi))
+            {
+                LayDanhSachKhachHang_NVTN(maKhachHang_ChungChi);
+                LayDanhSachChungChi_ThiSinh_NVTN(maKhachHang_ChungChi);
+                txtMaKH_NVTN.Enabled = false;
+                btnTimMaKH_NVTN.Enabled = false;
+            }
+        } 
+        private void btnHuyTimTenKH_NVTN_Click(object sender, EventArgs e)
+        {
+            maKhachHang_ChungChi = "M";
+            LayDanhSachKhachHang_NVTN(maKhachHang_ChungChi);
+            LayDanhSachChungChi_ThiSinh_NVTN(maKhachHang_ChungChi);
+            txtMaKH_NVTN.Enabled = true;
+            txtMaKH_NVTN.Text = "";
+            btnTimMaKH_NVTN.Enabled = true;
+        }
+        private void btnTraChungChi_NVTN_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<string> da_chon = new List<string>();
 
+                // Duyệt từng dòng trong DataGridView
+                foreach (DataGridViewRow row in gvChungChi_ThiSinh_NVTN.Rows)
+                {
+                    // Kiểm tra dòng hợp lệ và checkbox đã được chọn
+                    if (Convert.ToBoolean(row.Cells["Select"].Value) == true)
+                    {
+                        var maCC = row.Cells["Mã chứng chỉ"].Value?.ToString();
+                        if (!string.IsNullOrWhiteSpace(maCC))
+                        {
+                            da_chon.Add(maCC);
+                        }
+                    }
+                }
+
+                if (da_chon.Count == 0)
+                {
+                    MessageBox.Show("Vui lòng chọn ít nhất một chứng chỉ.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var db = new DB();
+                int successCount = 0;
+
+                // Gọi procedure cho từng mã chứng chỉ
+                foreach (var maCC in da_chon)
+                {
+                    var parameters = new Dictionary<string, object>
+                        {
+                            { "@v_macc", maCC }
+                        };
+
+                    bool result = db.ExecuteProcedure("P_UPDATE_CHUNG_CHI_NVTN", parameters);
+
+                    if (result)
+                        successCount++;
+                }
+
+                MessageBox.Show($"Đã cập nhật {successCount}/{da_chon.Count} chứng chỉ thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Có lỗi xảy ra khi cập nhật chứng chỉ: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            LayDanhSachChungChi_ThiSinh_NVTN(maKhachHang_ChungChi);
+        }
+        
         //----------------------------------------------------------------------------------------
         //Đăng xuất
         private void btnDangXuat_Click(object sender, EventArgs e)

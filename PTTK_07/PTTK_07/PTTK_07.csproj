@@ -172,11 +172,11 @@
     <Compile Include="Forms\DangNhap.Designer.cs">
       <DependentUpon>DangNhap.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DangKyThiCaNhan.cs">
+    <Compile Include="Forms\DangKyThi.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DangKyThiCaNhan.Designer.cs">
-      <DependentUpon>DangKyThiCaNhan.cs</DependentUpon>
+    <Compile Include="Forms\DangKyThi.Designer.cs">
+      <DependentUpon>DangKyThi.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\DangXuat.cs">
       <SubType>Form</SubType>
@@ -220,8 +220,8 @@
     <EmbeddedResource Include="Forms\CapChungChi.resx">
       <DependentUpon>CapChungChi.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DangKyThiCaNhan.resx">
-      <DependentUpon>DangKyThiCaNhan.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\DangKyThi.resx">
+      <DependentUpon>DangKyThi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DangNhap.resx">
       <DependentUpon>DangNhap.cs</DependentUpon>

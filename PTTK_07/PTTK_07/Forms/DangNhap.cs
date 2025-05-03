@@ -18,7 +18,7 @@ namespace PTTK_07.Forms
             InitializeComponent();
             btnDangNhap.Click += btnDangNhap_Click;
         }
-        private Forms.DangKyThiCaNhan _dangKyThiForm;
+        private Forms.DangKyThi _dangKyThiForm;
         private Forms.LapPhieuDangKy _lapPhieuForm;
         private Forms.ThanhToan _thanhToanForm;
         private Forms.GiaHanDacBiet _giaHanDacBietForm;
@@ -30,13 +30,13 @@ namespace PTTK_07.Forms
             string password = txtMatKhau.Text.Trim();
             string usecase  = cbUseCase.Text.Trim();
 
-            if (usecase == "Đăng ký thi Cá nhân")
+            if (usecase == "Đăng ký thi")
             {
                 if (username == "NVTN" && password == "NVTN")
                 {
                     if (_dangKyThiForm == null || _dangKyThiForm.IsDisposed)
                     {
-                        _dangKyThiForm = new Forms.DangKyThiCaNhan();
+                        _dangKyThiForm = new Forms.DangKyThi();
                     }
                     _dangKyThiForm.Show();
                     _dangKyThiForm.FormClosed += (s, args) => Application.Exit();

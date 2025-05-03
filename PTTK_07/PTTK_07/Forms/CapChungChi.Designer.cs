@@ -57,6 +57,10 @@ namespace PTTK_07.Forms
             this.btnTraChungChi_NVTN = new System.Windows.Forms.Button();
             this.gbNVNL = new System.Windows.Forms.GroupBox();
             this.gbNVTN = new System.Windows.Forms.GroupBox();
+            this.lbTenKH_NVTN = new System.Windows.Forms.Label();
+            this.txtTenKH_NVTN = new System.Windows.Forms.TextBox();
+            this.btnTimTenKH_NVTN = new System.Windows.Forms.Button();
+            this.btnHuyTimTenKH_NVTN = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.gvKetQuaThi_NVNL)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvLoaiChungChi_NVNL)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvThiSinh_NVNL)).BeginInit();
@@ -166,9 +170,9 @@ namespace PTTK_07.Forms
             this.btnNhapDiemSo_NVNL.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.btnNhapDiemSo_NVNL.Location = new System.Drawing.Point(345, 353);
             this.btnNhapDiemSo_NVNL.Name = "btnNhapDiemSo_NVNL";
-            this.btnNhapDiemSo_NVNL.Size = new System.Drawing.Size(56, 34);
+            this.btnNhapDiemSo_NVNL.Size = new System.Drawing.Size(136, 34);
             this.btnNhapDiemSo_NVNL.TabIndex = 18;
-            this.btnNhapDiemSo_NVNL.Text = "Nhập";
+            this.btnNhapDiemSo_NVNL.Text = "Nhập điểm số";
             this.btnNhapDiemSo_NVNL.UseVisualStyleBackColor = true;
             this.btnNhapDiemSo_NVNL.Click += new System.EventHandler(this.btnNhapDiemSo_NVNL_Click);
             // 
@@ -195,22 +199,22 @@ namespace PTTK_07.Forms
             this.btnTimMaKQT_NVNL.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.btnTimMaKQT_NVNL.Location = new System.Drawing.Point(345, 283);
             this.btnTimMaKQT_NVNL.Name = "btnTimMaKQT_NVNL";
-            this.btnTimMaKQT_NVNL.Size = new System.Drawing.Size(56, 34);
+            this.btnTimMaKQT_NVNL.Size = new System.Drawing.Size(136, 34);
             this.btnTimMaKQT_NVNL.TabIndex = 21;
-            this.btnTimMaKQT_NVNL.Text = "Tìm";
+            this.btnTimMaKQT_NVNL.Text = "Tìm theo mã";
             this.btnTimMaKQT_NVNL.UseVisualStyleBackColor = true;
-            this.btnTimMaKQT_NVNL.Click += new System.EventHandler(this.btnTim_Click);
+            this.btnTimMaKQT_NVNL.Click += new System.EventHandler(this.btnTimMaKQT_NVNL_Click);
             // 
             // btnHuyTimMaKQT_NVNL
             // 
             this.btnHuyTimMaKQT_NVNL.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnHuyTimMaKQT_NVNL.Location = new System.Drawing.Point(445, 283);
+            this.btnHuyTimMaKQT_NVNL.Location = new System.Drawing.Point(545, 283);
             this.btnHuyTimMaKQT_NVNL.Name = "btnHuyTimMaKQT_NVNL";
             this.btnHuyTimMaKQT_NVNL.Size = new System.Drawing.Size(73, 34);
             this.btnHuyTimMaKQT_NVNL.TabIndex = 22;
             this.btnHuyTimMaKQT_NVNL.Text = "Hủy tìm";
             this.btnHuyTimMaKQT_NVNL.UseVisualStyleBackColor = true;
-            this.btnHuyTimMaKQT_NVNL.Click += new System.EventHandler(this.btnHuyTimMaKQT_Click);
+            this.btnHuyTimMaKQT_NVNL.Click += new System.EventHandler(this.btnHuyTimMaKQT_NVNL_Click);
             // 
             // lbKhachHang_NVNL
             // 
@@ -253,7 +257,7 @@ namespace PTTK_07.Forms
             // btnHuyTimMaKH_NVTN
             // 
             this.btnHuyTimMaKH_NVTN.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnHuyTimMaKH_NVTN.Location = new System.Drawing.Point(445, 283);
+            this.btnHuyTimMaKH_NVTN.Location = new System.Drawing.Point(545, 283);
             this.btnHuyTimMaKH_NVTN.Name = "btnHuyTimMaKH_NVTN";
             this.btnHuyTimMaKH_NVTN.Size = new System.Drawing.Size(73, 34);
             this.btnHuyTimMaKH_NVTN.TabIndex = 30;
@@ -266,9 +270,9 @@ namespace PTTK_07.Forms
             this.btnTimMaKH_NVTN.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.btnTimMaKH_NVTN.Location = new System.Drawing.Point(345, 283);
             this.btnTimMaKH_NVTN.Name = "btnTimMaKH_NVTN";
-            this.btnTimMaKH_NVTN.Size = new System.Drawing.Size(56, 34);
+            this.btnTimMaKH_NVTN.Size = new System.Drawing.Size(136, 34);
             this.btnTimMaKH_NVTN.TabIndex = 29;
-            this.btnTimMaKH_NVTN.Text = "Tìm";
+            this.btnTimMaKH_NVTN.Text = "Tìm theo mã";
             this.btnTimMaKH_NVTN.UseVisualStyleBackColor = true;
             this.btnTimMaKH_NVTN.Click += new System.EventHandler(this.btnTimMaKH_ChungChi_Click);
             // 
@@ -313,7 +317,7 @@ namespace PTTK_07.Forms
             // 
             this.btnDangXuat.BackColor = System.Drawing.Color.Salmon;
             this.btnDangXuat.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btnDangXuat.Location = new System.Drawing.Point(1450, 846);
+            this.btnDangXuat.Location = new System.Drawing.Point(1450, 809);
             this.btnDangXuat.Name = "btnDangXuat";
             this.btnDangXuat.Size = new System.Drawing.Size(100, 40);
             this.btnDangXuat.TabIndex = 90;
@@ -330,6 +334,7 @@ namespace PTTK_07.Forms
             this.btnTraChungChi_NVTN.TabIndex = 91;
             this.btnTraChungChi_NVTN.Text = "Trả chứng chỉ";
             this.btnTraChungChi_NVTN.UseVisualStyleBackColor = true;
+            this.btnTraChungChi_NVTN.Click += new System.EventHandler(this.btnTraChungChi_NVTN_Click);
             // 
             // gbNVNL
             // 
@@ -358,6 +363,10 @@ namespace PTTK_07.Forms
             // 
             // gbNVTN
             // 
+            this.gbNVTN.Controls.Add(this.lbTenKH_NVTN);
+            this.gbNVTN.Controls.Add(this.txtTenKH_NVTN);
+            this.gbNVTN.Controls.Add(this.btnTimTenKH_NVTN);
+            this.gbNVTN.Controls.Add(this.btnHuyTimTenKH_NVTN);
             this.gbNVTN.Controls.Add(this.btnTraChungChi_NVTN);
             this.gbNVTN.Controls.Add(this.gvKhachHang_NVTN);
             this.gbNVTN.Controls.Add(this.gvChungChi_ThiSinh_NVTN);
@@ -370,16 +379,60 @@ namespace PTTK_07.Forms
             this.gbNVTN.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.gbNVTN.Location = new System.Drawing.Point(30, 460);
             this.gbNVTN.Name = "gbNVTN";
-            this.gbNVTN.Size = new System.Drawing.Size(1540, 360);
+            this.gbNVTN.Size = new System.Drawing.Size(1540, 340);
             this.gbNVTN.TabIndex = 93;
             this.gbNVTN.TabStop = false;
             this.gbNVTN.Text = "Nhân viên tiếp nhận";
+            // 
+            // lbTenKH_NVTN
+            // 
+            this.lbTenKH_NVTN.AutoSize = true;
+            this.lbTenKH_NVTN.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.lbTenKH_NVTN.Location = new System.Drawing.Point(16, 333);
+            this.lbTenKH_NVTN.Name = "lbTenKH_NVTN";
+            this.lbTenKH_NVTN.Size = new System.Drawing.Size(123, 20);
+            this.lbTenKH_NVTN.TabIndex = 92;
+            this.lbTenKH_NVTN.Text = "Tên khách hàng";
+            this.lbTenKH_NVTN.Visible = false;
+            // 
+            // txtTenKH_NVTN
+            // 
+            this.txtTenKH_NVTN.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.txtTenKH_NVTN.Location = new System.Drawing.Point(152, 327);
+            this.txtTenKH_NVTN.Name = "txtTenKH_NVTN";
+            this.txtTenKH_NVTN.Size = new System.Drawing.Size(160, 26);
+            this.txtTenKH_NVTN.TabIndex = 93;
+            this.txtTenKH_NVTN.Visible = false;
+            // 
+            // btnTimTenKH_NVTN
+            // 
+            this.btnTimTenKH_NVTN.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btnTimTenKH_NVTN.Location = new System.Drawing.Point(345, 323);
+            this.btnTimTenKH_NVTN.Name = "btnTimTenKH_NVTN";
+            this.btnTimTenKH_NVTN.Size = new System.Drawing.Size(136, 34);
+            this.btnTimTenKH_NVTN.TabIndex = 94;
+            this.btnTimTenKH_NVTN.Text = "Tìm theo tên";
+            this.btnTimTenKH_NVTN.UseVisualStyleBackColor = true;
+            this.btnTimTenKH_NVTN.Visible = false;
+            this.btnTimTenKH_NVTN.Click += new System.EventHandler(this.btnTimTenKH_NVTN_Click);
+            // 
+            // btnHuyTimTenKH_NVTN
+            // 
+            this.btnHuyTimTenKH_NVTN.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.btnHuyTimTenKH_NVTN.Location = new System.Drawing.Point(545, 323);
+            this.btnHuyTimTenKH_NVTN.Name = "btnHuyTimTenKH_NVTN";
+            this.btnHuyTimTenKH_NVTN.Size = new System.Drawing.Size(73, 34);
+            this.btnHuyTimTenKH_NVTN.TabIndex = 95;
+            this.btnHuyTimTenKH_NVTN.Text = "Hủy tìm";
+            this.btnHuyTimTenKH_NVTN.UseVisualStyleBackColor = true;
+            this.btnHuyTimTenKH_NVTN.Visible = false;
+            this.btnHuyTimTenKH_NVTN.Click += new System.EventHandler(this.btnHuyTimTenKH_NVTN_Click);
             // 
             // CapChungChi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1594, 898);
+            this.ClientSize = new System.Drawing.Size(1594, 861);
             this.Controls.Add(this.btnDangXuat);
             this.Controls.Add(this.gbNVNL);
             this.Controls.Add(this.gbNVTN);
@@ -429,5 +482,9 @@ namespace PTTK_07.Forms
         private System.Windows.Forms.Button btnTraChungChi_NVTN;
         private System.Windows.Forms.GroupBox gbNVNL;
         private GroupBox gbNVTN;
+        private Label lbTenKH_NVTN;
+        private TextBox txtTenKH_NVTN;
+        private Button btnTimTenKH_NVTN;
+        private Button btnHuyTimTenKH_NVTN;
     }
 }
