@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
+using System.Drawing;
 namespace PTTK_07.Forms
 {
     public partial class CapChungChi : Form
@@ -156,7 +157,7 @@ namespace PTTK_07.Forms
                             }
                             if (gvKetQuaThi_NVNL.Columns["Ngày có điểm"] != null)
                             {
-                                gvKetQuaThi_NVNL.Columns["Ngày có điểm"].Width = 120;
+                                gvKetQuaThi_NVNL.Columns["Ngày có điểm"].Width = 130;
                             }
                             if (gvKetQuaThi_NVNL.Columns["Mã thí sinh"] != null)
                             {
@@ -638,27 +639,21 @@ namespace PTTK_07.Forms
         {
             try
             {
-                // Hiển thị hộp thoại xác nhận
-                var confirmResult = MessageBox.Show("Bạn có chắc chắn muốn đăng xuất?",
-                                                  "Xác nhận đăng xuất",
-                                                  MessageBoxButtons.YesNo,
-                                                  MessageBoxIcon.Question);
-
-                if (confirmResult == DialogResult.Yes)
+                // Hiển thị form xác nhận tùy chỉnh
+                using (var _dangXuatForm = new Forms.DangXuat("Bạn có chắc chắn muốn đăng xuất?"))
                 {
-                    //// Mở lại form đăng nhập
-                    //var loginForm = new DangNhap(); // Thay LoginForm bằng tên form đăng nhập thực tế
-                    //loginForm.Show();
-                    if (_dangNhapForm == null || _dangNhapForm.IsDisposed)
-                    {
-                        _dangNhapForm = new Forms.DangNhap();
-                    }
-                    _dangNhapForm.Show();
-                    _dangNhapForm.FormClosed += (s, args) => Application.Exit();
-                    this.Hide();
+                    var confirmResult = _dangXuatForm.ShowDialog();
 
-                    // Đóng form hiện tại
-                    //this.Close();
+                    if (confirmResult == DialogResult.Yes) // Nút "Có"
+                    {
+                        if (_dangNhapForm == null || _dangNhapForm.IsDisposed)
+                        {
+                            _dangNhapForm = new Forms.DangNhap();
+                        }
+                        _dangNhapForm.Show();
+                        _dangNhapForm.FormClosed += (s, args) => Application.Exit();
+                        this.Hide();
+                    }
                 }
             }
             catch (Exception ex)

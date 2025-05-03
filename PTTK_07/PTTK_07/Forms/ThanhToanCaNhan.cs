@@ -27,6 +27,7 @@ namespace PTTK_07.Forms
         {
             LayDanhSachPhieuDangKy();
             LayDanhSachHoaDon();
+            FormHinhThucTT_Load();
         }
 
         private void btnLogOut_Click(object sender, EventArgs e)
@@ -65,7 +66,7 @@ namespace PTTK_07.Forms
         {
             try
             {
-                var pdk = new DB().Select("SELECT MaPDK, TrangThai, HanThanhToan, MaLCC, MaLT, MaKH, MaTS, MaNVTiepNhan FROM PHIEU_DANG_KY");
+                var pdk = new DB().Select("SELECT MaPDK,NgayLapPDK, TrangThai, HanThanhToan, MaLCC, MaLT, MaKH, MaTS, MaNVTiepNhan FROM PHIEU_DANG_KY");
 
                 DataTable dt = new DataTable();
                 dt.Load(pdk);
