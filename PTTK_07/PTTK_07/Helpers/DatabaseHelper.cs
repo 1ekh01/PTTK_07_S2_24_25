@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Data;
-using Microsoft.Data.SqlClient;
 using System.Windows.Forms;
 using System.Drawing;
-using System.Collections.Generic;
-// using System.Data.SqlClient;
+using System.Data.SqlClient;
 
 namespace PTTK_07.Helpers
 //{
@@ -44,7 +42,8 @@ namespace PTTK_07.Helpers
     class DB
     {
         //1.Address of SQL server and database(Connection String)
-        string ConnectionString = @"Data Source=LAPTOP-I0V0SQMU\MS_SQLSERVER22;Initial Catalog=PTTK_TTLT_ACCI;Integrated Security=True;Trust Server Certificate=True";        //2.Establish connection(c# sqlconnection class)
+        private string ConnectionString = "Data Source=LAPTOP-I20CCGIS;Initial Catalog=PTTK_TTLT_ACCI;Integrated Security=True;Trust Server Certificate=True";
+        //2.Establish connection(c# sqlconnection class)
         SqlConnection con = null;
 
         public DB()
@@ -96,97 +95,6 @@ namespace PTTK_07.Helpers
             }
 
             return null;
-        }
-        public SqlDataReader SelectFunction(string functionName, string parameterValue)
-        {
-            try
-            {
-                // 3. Open connection
-                con.Open();
-
-                // 3. Prepare SQL query to call table-valued function
-                string query = $"SELECT * FROM {functionName}(@param)";
-                SqlCommand cmd = new SqlCommand(query, con);
-
-                // 4. Add parameter to prevent SQL Injection
-                cmd.Parameters.AddWithValue("@param", parameterValue);
-
-                // 5. Execute query and return SqlDataReader
-                return cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return null;
-            }
-        }
-        public bool ExecuteProcedure(string procedureName, Dictionary<string, object> parameters = null)
-        {
-            using (SqlConnection con = new SqlConnection(ConnectionString))
-            {
-                try
-                {
-                    con.Open();
-                    using (SqlCommand cmd = new SqlCommand(procedureName, con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-
-                        // Thêm tham số nếu có
-                        if (parameters != null)
-                        {
-                            foreach (var param in parameters)
-                            {
-                                cmd.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
-                            }
-                        }
-
-                        // Thực thi PROCEDURE
-                        int rowsAffected = cmd.ExecuteNonQuery();
-                        return rowsAffected > 0;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-            }
-        }
-        public DataTable ExecuteProcedureWithResult(string procedureName, Dictionary<string, object> parameters = null)
-        {
-            using (SqlConnection con = new SqlConnection(ConnectionString))
-            {
-                try
-                {
-                    con.Open();
-                    using (SqlCommand cmd = new SqlCommand(procedureName, con))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-
-                        // Thêm tham số nếu có
-                        if (parameters != null)
-                        {
-                            foreach (var param in parameters)
-                            {
-                                cmd.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
-                            }
-                        }
-
-                        // Thực thi và lấy dữ liệu
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            DataTable dt = new DataTable();
-                            dt.Load(reader);
-                            return dt;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return null;
-                }
-            }
         }
     }
 }

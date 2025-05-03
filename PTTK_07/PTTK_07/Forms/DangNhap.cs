@@ -24,7 +24,7 @@ namespace PTTK_07.Forms
         private Forms.ThanhToanCaNhan _thanhToanCaNhanForm;
         private Forms.ThanhToanDonVi _thanhToanDonViForm;
         private Forms.GiaHanDacBiet _giaHanDacBietForm;
-        private Forms.GiaHanTinhPhi _giaHanTinhPhiForm;
+        //private Forms.GiaHanTinhPhi _giaHanTinhPhiForm;
         private Forms.CapChungChi _capChungChiForm;
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
@@ -120,29 +120,29 @@ namespace PTTK_07.Forms
                     this.Hide();
                 }
             }
-            else if (usecase == "Gia hạn Tính phí")
-            {
-                if (username == "NVTN" && password == "NVTN")
-                {
-                    if (_giaHanTinhPhiForm == null || _giaHanTinhPhiForm.IsDisposed)
-                    {
-                        _giaHanTinhPhiForm = new Forms.GiaHanTinhPhi();
-                    }
-                    _giaHanTinhPhiForm.Show();
-                    _giaHanTinhPhiForm.FormClosed += (s, args) => Application.Exit();
-                    this.Hide();
-                }
-                else if (username == "NVKT" && password == "NVKT")
-                {
-                    if (_giaHanTinhPhiForm == null || _giaHanTinhPhiForm.IsDisposed)
-                    {
-                        _giaHanTinhPhiForm = new Forms.GiaHanTinhPhi();
-                    }
-                    _giaHanTinhPhiForm.Show();
-                    _giaHanTinhPhiForm.FormClosed += (s, args) => Application.Exit();
-                    this.Hide();
-                }
-            }
+            //else if (usecase == "Gia hạn Tính phí")
+            //{
+            //    if (username == "NVTN" && password == "NVTN")
+            //    {
+            //        if (_giaHanTinhPhiForm == null || _giaHanTinhPhiForm.IsDisposed)
+            //        {
+            //            _giaHanTinhPhiForm = new Forms.GiaHanTinhPhi();
+            //        }
+            //        _giaHanTinhPhiForm.Show();
+            //        _giaHanTinhPhiForm.FormClosed += (s, args) => Application.Exit();
+            //        this.Hide();
+            //    }
+            //    else if (username == "NVKT" && password == "NVKT")
+            //    {
+            //        if (_giaHanTinhPhiForm == null || _giaHanTinhPhiForm.IsDisposed)
+            //        {
+            //            _giaHanTinhPhiForm = new Forms.GiaHanTinhPhi();
+            //        }
+            //        _giaHanTinhPhiForm.Show();
+            //        _giaHanTinhPhiForm.FormClosed += (s, args) => Application.Exit();
+            //        this.Hide();
+            //    }
+            //}
             else if (usecase == "Cấp chứng chỉ")
             {
                 if (username == "NVNL" && password == "NVNL")
@@ -155,17 +155,13 @@ namespace PTTK_07.Forms
                     _capChungChiForm.FormClosed += (s, args) => Application.Exit();
                     this.Hide();
                 }
-                else if (username == "NVTN" && password == "NVTN")
-                {
-                    if (_capChungChiForm == null || _capChungChiForm.IsDisposed)
-                    {
-                        _capChungChiForm = new Forms.CapChungChi();
-                    }
-                    _capChungChiForm.Show();
-                    _capChungChiForm.FormClosed += (s, args) => Application.Exit();
-                    this.Hide();
-                }
             }
+        }
+
+        private void DangNhap_Load(object sender, EventArgs e)
+        {
+
+
         }
     }
 }
