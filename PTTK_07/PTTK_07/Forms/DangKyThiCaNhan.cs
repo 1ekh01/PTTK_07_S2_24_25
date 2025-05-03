@@ -19,12 +19,12 @@ namespace PTTK_07.Forms
         public DangKyThiCaNhan()
         {
             InitializeComponent();
-            this.Load += GV_LapPhieuDangKy_Load;
+            this.Load += GV_DangKyThiCaNhan_Load;
             this.btnLogOut.Click += new System.EventHandler(this.btnLogOut_Click);
         }
         private Forms.DangNhap _dangNhapForm;
         private DataTable allLichThi;
-        private void GV_LapPhieuDangKy_Load(object sender, EventArgs e)
+        private void GV_DangKyThiCaNhan_Load(object sender, EventArgs e)
         {
             LayDanhSachKhachHang();
             LayDanhSachThiSinh();
