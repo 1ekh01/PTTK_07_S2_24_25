@@ -202,12 +202,6 @@
     <Compile Include="Forms\ThanhToanCaNhan.Designer.cs">
       <DependentUpon>ThanhToanCaNhan.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ThanhToanDonVi.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\ThanhToanDonVi.Designer.cs">
-      <DependentUpon>ThanhToanDonVi.cs</DependentUpon>
-    </Compile>
     <Compile Include="Helpers\DatabaseHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -237,9 +231,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ThanhToanCaNhan.resx">
       <DependentUpon>ThanhToanCaNhan.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ThanhToanDonVi.resx">
-      <DependentUpon>ThanhToanDonVi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -21,7 +21,6 @@ namespace PTTK_07.Forms
         private Forms.DangKyThiCaNhan _dangKyThiForm;
         private Forms.LapPhieuDangKy _lapPhieuForm;
         private Forms.ThanhToan _thanhToanForm;
-        private Forms.ThanhToanDonVi _thanhToanDonViForm;
         private Forms.GiaHanDacBiet _giaHanDacBietForm;
         private Forms.GiaHanTinhPhi _giaHanTinhPhiForm;
         private Forms.CapChungChi _capChungChiForm;
